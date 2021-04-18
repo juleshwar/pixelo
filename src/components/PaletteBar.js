@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import ColorCell from "./ColorCell";
 
 export class PaletteBar extends Component {
   static propTypes = {
@@ -8,13 +9,7 @@ export class PaletteBar extends Component {
 
   render() {
     const paletteList = this.props.colors.map((color) => {
-      return (
-        <div
-          key={color}
-          className="h-12 w-12"
-          style={Object.assign({}, { background: color })}
-        ></div>
-      );
+      return <ColorCell key={color} size={12} color={color} />;
     });
     return <div className="flex border-black">{paletteList}</div>;
   }
