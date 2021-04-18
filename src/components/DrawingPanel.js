@@ -21,7 +21,7 @@ export class DrawingPanel extends Component {
         const cellIndex = colIndex * gridSize + rowIndex;
         const cellColor = this.props.drawingMeta[cellIndex];
         rowCells.push(
-          <td key={cellIndex}>
+          <td key={cellIndex} className="p-0 border border-gray-200">
             <ColorCell color={cellColor} size={16} />
           </td>
         );
@@ -29,7 +29,7 @@ export class DrawingPanel extends Component {
       renderedDrawing.push(<tr>{rowCells}</tr>);
     }
     return (
-      <table>
+      <table className="border-collapse">
         <tbody>{renderedDrawing}</tbody>
       </table>
     );
