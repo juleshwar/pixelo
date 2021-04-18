@@ -1,9 +1,16 @@
 import React, { Component } from "react";
-import { DRAWING_3 } from "../constants/components/DrawingPanelConstants";
 import ColorCell from "./ColorCell";
+import PropTypes from "prop-types";
+import { DRAWING_0 } from "../constants/components/DrawingPanelConstants";
 
 export class DrawingPanel extends Component {
-  static propTypes = {};
+  static propTypes = {
+    drawingMeta: PropTypes.arrayOf(PropTypes.string),
+  };
+
+  static defaultProps = {
+    drawingMeta: DRAWING_0,
+  };
 
   render() {
     const gridSize = 10;
@@ -12,7 +19,7 @@ export class DrawingPanel extends Component {
       let rowCells = [];
       for (let rowIndex = 0; rowIndex < gridSize; rowIndex++) {
         const cellIndex = colIndex * gridSize + rowIndex;
-        const cellColor = DRAWING_3[cellIndex];
+        const cellColor = this.props.drawingMeta[cellIndex];
         rowCells.push(
           <td key={cellIndex}>
             <ColorCell color={cellColor} size={16} />
