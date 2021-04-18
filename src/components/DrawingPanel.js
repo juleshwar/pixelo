@@ -26,7 +26,7 @@ export class DrawingPanel extends Component {
           </td>
         );
       }
-      renderedDrawing.push(<tr>{rowCells}</tr>);
+      renderedDrawing.push(<tr key={colIndex}>{rowCells}</tr>);
     }
     return (
       <table className="border-collapse">
