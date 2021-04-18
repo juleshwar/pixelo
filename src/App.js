@@ -1,4 +1,5 @@
 import "./App.css";
+import GameView from "./components/GameView";
 import PaletteBar from "./components/PaletteBar";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                     "#F472B6",
                 ]}
             />
+            <GameView />
         </div>
     );
 }
