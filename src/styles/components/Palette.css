@@ -1,0 +1,8 @@
+.palette-bar {
+    display: flex;
+    flex-direction: row;
+}
+.palette-item {
+    width: 40px;
+    height: 40px;
+}
