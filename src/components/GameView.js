@@ -5,6 +5,8 @@ import {
 } from "../constants/components/DrawingPanelConstants";
 import PropTypes from "prop-types";
 import DrawingPanel from "./DrawingPanel";
+import PaletteBar from "./PaletteBar";
+import { COLOR_PALETTE } from "../constants/components/PaletteBar";
 
 export class GameView extends Component {
   constructor(props) {
@@ -31,16 +33,19 @@ export class GameView extends Component {
 
   render() {
     return (
-      <div className="flex">
-        <DrawingPanel
-          drawingMeta={DRAWING_3}
-          onUpdateCellColor={this.onUpdateColor}
-        />
-        <DrawingPanel
-          drawingMeta={this.state.currentMeta}
-          onUpdateCellColor={this.onUpdateColor}
-          isReadOnly={false}
-        />
+      <div className="flex-column">
+        <PaletteBar colors={COLOR_PALETTE} />
+        <section className="flex">
+          <DrawingPanel
+            drawingMeta={DRAWING_3}
+            onUpdateCellColor={this.onUpdateColor}
+          />
+          <DrawingPanel
+            drawingMeta={this.state.currentMeta}
+            onUpdateCellColor={this.onUpdateColor}
+            isReadOnly={false}
+          />
+        </section>
       </div>
     );
   }
