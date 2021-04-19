@@ -9,6 +9,9 @@ export class DrawingPanel extends Component {
     this.handleMouseMoveOnColorCell = this.handleMouseMoveOnColorCell.bind(
       this
     );
+    this.handleMouseDownOnColorCell = this.handleMouseDownOnColorCell.bind(
+      this
+    );
   }
 
   static propTypes = {
@@ -29,6 +32,10 @@ export class DrawingPanel extends Component {
     }
   }
 
+  handleMouseDownOnColorCell(cellIndex) {
+    this.props.doUpdateCellColor(cellIndex);
+  }
+
   render() {
     const gridSize = 10;
     let renderedDrawing = [];
@@ -46,6 +53,7 @@ export class DrawingPanel extends Component {
                 ? null
                 : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
             }
+            onMouseDown={this.handleMouseDownOnColorCell.bind(this, cellIndex)}
           >
             <ColorCell index={cellIndex} color={cellColor} size={16} />
           </td>
