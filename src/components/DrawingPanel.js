@@ -14,7 +14,7 @@ export class DrawingPanel extends Component {
   static propTypes = {
     drawingMeta: PropTypes.arrayOf(PropTypes.string),
     isReadOnly: PropTypes.bool,
-    onUpdateCellColor: PropTypes.func,
+    doUpdateCellColor: PropTypes.func,
   };
 
   static defaultProps = {
@@ -25,7 +25,7 @@ export class DrawingPanel extends Component {
   handleMouseMoveOnColorCell(cellIndex, e) {
     // only allow when left button is pressed
     if (e.buttons === 1) {
-      this.props.onUpdateCellColor(cellIndex);
+      this.props.doUpdateCellColor(cellIndex);
     }
   }
 

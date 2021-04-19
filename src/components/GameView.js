@@ -14,18 +14,10 @@ export class GameView extends Component {
     this.state = {
       currentMeta: DRAWING_0,
     };
-    this.onUpdateColor = this.onUpdateColor.bind(this);
+    this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
   }
 
-  static propTypes = {
-    selectedColor: PropTypes.string,
-  };
-
-  static defaultProps = {
-    selectedColor: "#FF00FF",
-  };
-
-  onUpdateColor(colorIndex) {
+  doUpdateDrawingMeta(colorIndex) {
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
     modifiedMeta[colorIndex] = this.props.selectedColor;
     this.setState({ currentMeta: modifiedMeta });
@@ -38,11 +30,11 @@ export class GameView extends Component {
         <section className="flex">
           <DrawingPanel
             drawingMeta={DRAWING_3}
-            onUpdateCellColor={this.onUpdateColor}
+            doUpdateCellColor={this.doUpdateDrawingMeta}
           />
           <DrawingPanel
             drawingMeta={this.state.currentMeta}
-            onUpdateCellColor={this.onUpdateColor}
+            doUpdateCellColor={this.doUpdateDrawingMeta}
             isReadOnly={false}
           />
         </section>
