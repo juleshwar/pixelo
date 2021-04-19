@@ -6,7 +6,7 @@ import {
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import { COLOR_PALETTE } from "../constants/components/PaletteBar";
-import UtilFunctions from "../services/UtilFunctions";
+import * as UtilFunctions from "../services/UtilFunctions";
 
 export class GameView extends Component {
   constructor(props) {
