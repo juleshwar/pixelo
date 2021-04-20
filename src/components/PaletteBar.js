@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ColorCell from "./ColorCell";
+import SelectableColorCell from "./SelectableColorCell";
 
 export class PaletteBar extends Component {
   static propTypes = {
@@ -12,7 +12,7 @@ export class PaletteBar extends Component {
   render() {
     const paletteList = this.props.colors.map((color) => {
       return (
-        <ColorCell
+        <SelectableColorCell
           key={color}
           isSelected={this.props.selectedColor === color}
           size={12}

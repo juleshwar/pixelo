@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 export class ColorCell extends Component {
@@ -6,17 +6,27 @@ export class ColorCell extends Component {
     size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    isSelected: PropTypes.bool,
+    content: PropTypes.element,
+    className: PropTypes.string,
   };
+
+  static defaultProps = {
+    className: "",
+  };
+
   render() {
+    const classes =
+      `h-${this.props.size} w-${this.props.size} relative` +
+      " " +
+      this.props.className;
     return (
       <div
-        className={`h-${this.props.size} w-${this.props.size} ${
-          this.props.isSelected ? "border border-yellow-500" : ""
-        }`}
+        className={classes}
         style={Object.assign({}, { background: this.props.color })}
         onClick={this.props.onClick}
-      ></div>
+      >
+        {this.props.content}
+      </div>
     );
   }
 }
