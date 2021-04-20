@@ -45,9 +45,9 @@ export class DrawingPanel extends Component {
         const cellIndex = colIndex * gridSize + rowIndex;
         const cellColor = this.props.drawingMeta[cellIndex];
         rowCells.push(
-          <div
+          <td
             key={cellColor + cellIndex}
-            className="p-0 table-cell border border-gray-200"
+            className="p-0 border border-gray-200"
             onMouseMove={
               this.props.isReadOnly
                 ? null
@@ -56,16 +56,16 @@ export class DrawingPanel extends Component {
             onMouseDown={this.handleMouseDownOnColorCell.bind(this, cellIndex)}
           >
             <ColorCell index={cellIndex} color={cellColor} size={16} />
-          </div>
+          </td>
         );
       }
-      renderedDrawing.push(
-        <div className="table-row" key={colIndex}>
-          {rowCells}
-        </div>
-      );
+      renderedDrawing.push(<tr key={colIndex}>{rowCells}</tr>);
     }
-    return <div className="table">{renderedDrawing}</div>;
+    return (
+      <table className="border-collapse">
+        <tbody>{renderedDrawing}</tbody>
+      </table>
+    );
   }
 }
 
