@@ -59,10 +59,14 @@ export class DrawingPanel extends Component {
           </td>
         );
       }
-      renderedDrawing.push(<tr key={colIndex}>{rowCells}</tr>);
+      renderedDrawing.push(
+        <tr className="table-row" key={colIndex}>
+          {rowCells}
+        </tr>
+      );
     }
     return (
-      <table className="border-collapse">
+      <table className="table-auto border-collapse border border-gray-200">
         <tbody>{renderedDrawing}</tbody>
       </table>
     );
