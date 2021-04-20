@@ -30,25 +30,21 @@ export class GameView extends Component {
     this.setState({ currentColor: color });
   }
 
-  componentDidUpdate() {
-    /* Checking if the son has won */
-    this.areYouWinningSon();
-  }
-
   areYouWinningSon() {
-    if (
-      UtilFunctions.compareDrawingMeta(
-        this.state.templateMeta,
-        this.state.currentMeta
-      )
-    ) {
-      console.log("You're winning, son!");
-    }
+    return UtilFunctions.compareDrawingMeta(
+      this.state.templateMeta,
+      this.state.currentMeta
+    );
   }
 
   render() {
+    let parentClasses = "flex-column h-screen";
+    if (this.areYouWinningSon()) {
+      parentClasses += " bg-green-700";
+    }
+
     return (
-      <div className="flex-column h-screen">
+      <div className={parentClasses}>
         <header className="flex justify-center py-4">
           <PaletteBar
             colors={COLOR_PALETTE}
