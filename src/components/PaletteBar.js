@@ -21,7 +21,7 @@ export class PaletteBar extends Component {
         />
       );
     });
-    return <div className="flex border-black">{paletteList}</div>;
+    return <nav className="flex border border-black">{paletteList}</nav>;
   }
 }
 

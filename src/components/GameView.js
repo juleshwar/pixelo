@@ -48,13 +48,15 @@ export class GameView extends Component {
 
   render() {
     return (
-      <div className="flex-column">
-        <PaletteBar
-          colors={COLOR_PALETTE}
-          selectedColor={this.state.currentColor}
-          doUpdateSelectedColor={this.doUpdateCurrentColor}
-        />
-        <section className="flex">
+      <div className="flex-column h-screen">
+        <header className="flex justify-center py-4">
+          <PaletteBar
+            colors={COLOR_PALETTE}
+            selectedColor={this.state.currentColor}
+            doUpdateSelectedColor={this.doUpdateCurrentColor}
+          />
+        </header>
+        <section className="flex center justify-around py-8 px-4">
           <DrawingPanel
             drawingMeta={this.state.templateMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
