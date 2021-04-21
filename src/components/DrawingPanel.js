@@ -18,11 +18,13 @@ export class DrawingPanel extends Component {
     drawingMeta: PropTypes.arrayOf(PropTypes.string),
     isReadOnly: PropTypes.bool,
     doUpdateCellColor: PropTypes.func,
+    className: PropTypes.string,
   };
 
   static defaultProps = {
     drawingMeta: DRAWINGS.cleanSlate,
     isReadOnly: true,
+    className: "",
   };
 
   handleMouseMoveOnColorCell(cellIndex, e) {
@@ -62,7 +64,7 @@ export class DrawingPanel extends Component {
             <ColorCell
               index={cellIndex}
               color={cellColor}
-              className="h-16 w-16"
+              className="h-10 w-10 md:w-16 md:h-16"
             />
           </td>
         );
@@ -74,7 +76,12 @@ export class DrawingPanel extends Component {
       );
     }
     return (
-      <table className="table-auto border-collapse border border-gray-200">
+      <table
+        className={
+          "table-auto border-collapse border border-gray-200 " +
+          this.props.className
+        }
+      >
         <tbody>{renderedDrawing}</tbody>
       </table>
     );

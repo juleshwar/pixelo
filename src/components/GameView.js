@@ -68,20 +68,22 @@ export class GameView extends Component {
           />
           <button
             onClick={this.setupNewGame}
-            className="flex items-center justify-center cursor-default border border-purple-500 rounded-3xl px-8 bg-white ml-16"
+            className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl md:px-8 bg-white ml-16"
           >
             <span className="text-4xl">🎲</span>
-            <span className="ml-4 text-xl">
+            <span className="hidden text-xl md:show md:ml-4">
               {isSonWinning ? "Restart" : "New Game"}
             </span>
           </button>
         </header>
-        <section className="flex center justify-around py-8 px-4">
+        <section className="flex flex-col items-center py-8 px-4 md:justify-around md:flex-row">
           <DrawingPanel
+            className=""
             drawingMeta={this.state.templateMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
           />
           <DrawingPanel
+            className="mt-4 md:mt-0"
             drawingMeta={this.state.currentMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
             isReadOnly={isSonWinning}
