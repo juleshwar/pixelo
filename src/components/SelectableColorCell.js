@@ -4,7 +4,6 @@ import ColorCell from "./ColorCell";
 
 export class SelectableColorCell extends Component {
   static propTypes = {
-    size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     isSelected: PropTypes.bool,

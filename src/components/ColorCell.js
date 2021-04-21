@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 export class ColorCell extends Component {
   static propTypes = {
-    size: PropTypes.number.isRequired,
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     content: PropTypes.element,
@@ -15,10 +14,7 @@ export class ColorCell extends Component {
   };
 
   render() {
-    const classes =
-      `h-${this.props.size} w-${this.props.size} relative` +
-      " " +
-      this.props.className;
+    const classes = "relative " + this.props.className;
     return (
       <div
         className={classes}

@@ -15,7 +15,7 @@ export class PaletteBar extends Component {
         <SelectableColorCell
           key={color}
           isSelected={this.props.selectedColor === color}
-          size={12}
+          className="h-12 w-12"
           color={color}
           onClick={this.props.doUpdateSelectedColor.bind(this, color)}
         />
