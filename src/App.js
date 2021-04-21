@@ -2,11 +2,7 @@ import "./App.css";
 import GameView from "./components/GameView";
 
 function App() {
-  return (
-    <div>
-      <GameView />
-    </div>
-  );
+  return <GameView />;
 }
 
 export default App;
