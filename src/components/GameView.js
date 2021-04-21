@@ -9,7 +9,7 @@ export class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      templateMeta: this.getRandomTemplate(),
+      templateMeta: UtilFunctions.getRandomTemplate(),
       currentMeta: DRAWINGS.cleanSlate,
       currentColor: COLOR_PALETTE[1],
     };
@@ -36,18 +36,11 @@ export class GameView extends Component {
     );
   }
 
-  getRandomTemplate() {
-    const drawingIndex = Math.floor(
-      Math.random() * DRAWINGS.presetDrawings.length
-    );
-    return DRAWINGS.presetDrawings[drawingIndex];
-  }
-
   setupRandomTemplate() {
     const currentTemplate = this.templateMeta;
-    let randomTemplate = this.getRandomTemplate();
+    let randomTemplate = UtilFunctions.getRandomTemplate();
     while (UtilFunctions.compareDrawingMeta(currentTemplate, randomTemplate)) {
-      randomTemplate = this.getRandomTemplate();
+      randomTemplate = UtilFunctions.getRandomTemplate();
     }
     this.setState({ templateMeta: randomTemplate });
   }
