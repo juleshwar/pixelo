@@ -51,8 +51,10 @@ export class GameView extends Component {
   }
 
   render() {
-    let parentClasses = "flex-column h-screen";
-    if (this.areYouWinningSon()) {
+    let isSonWinning = this.areYouWinningSon();
+
+    let parentClasses = "flex flex-col h-screen";
+    if (isSonWinning) {
       parentClasses += " bg-green-700";
     }
 
@@ -69,7 +71,9 @@ export class GameView extends Component {
             className="flex items-center justify-center cursor-default border border-purple-500 rounded-3xl px-8 bg-white ml-16"
           >
             <span className="text-4xl">🎲</span>
-            <span className="ml-4 text-xl">New Game</span>
+            <span className="ml-4 text-xl">
+              {isSonWinning ? "Restart" : "New Game"}
+            </span>
           </button>
         </header>
         <section className="flex center justify-around py-8 px-4">
@@ -80,9 +84,17 @@ export class GameView extends Component {
           <DrawingPanel
             drawingMeta={this.state.currentMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
-            isReadOnly={this.areYouWinningSon()}
+            isReadOnly={isSonWinning}
           />
         </section>
+        <footer
+          className={
+            "flex justify-center mt-auto py-6 " +
+            (isSonWinning ? "show" : "hidden")
+          }
+        >
+          <span className="text-5xl text-white">You won! 🥳</span>
+        </footer>
       </div>
     );
   }
