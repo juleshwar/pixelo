@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import {
-  DRAWING_0,
-  DRAWING_3,
-} from "../constants/components/DrawingPanelConstants";
+import DRAWINGS from "../constants/components/DrawingPanelConstants";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import { COLOR_PALETTE } from "../constants/components/PaletteBar";
@@ -12,12 +9,14 @@ export class GameView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      templateMeta: DRAWING_3,
-      currentMeta: DRAWING_0,
-      currentColor: COLOR_PALETTE[0],
+      templateMeta: this.getRandomTemplate(),
+      currentMeta: DRAWINGS.cleanSlate,
+      currentColor: COLOR_PALETTE[1],
     };
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
+    this.setupNewGame = this.setupNewGame.bind(this);
+    this.areYouWinningSon = this.areYouWinningSon.bind(this);
   }
 
   doUpdateDrawingMeta(colorIndex) {
@@ -37,6 +36,27 @@ export class GameView extends Component {
     );
   }
 
+  getRandomTemplate() {
+    const drawingIndex = Math.floor(
+      Math.random() * DRAWINGS.presetDrawings.length
+    );
+    return DRAWINGS.presetDrawings[drawingIndex];
+  }
+
+  setupRandomTemplate() {
+    const currentTemplate = this.templateMeta;
+    let randomTemplate = this.getRandomTemplate();
+    while (UtilFunctions.compareDrawingMeta(currentTemplate, randomTemplate)) {
+      randomTemplate = this.getRandomTemplate();
+    }
+    this.setState({ templateMeta: randomTemplate });
+  }
+
+  setupNewGame() {
+    this.setState({ currentMeta: DRAWINGS.cleanSlate });
+    this.setupRandomTemplate();
+  }
+
   render() {
     let parentClasses = "flex-column h-screen";
     if (this.areYouWinningSon()) {
@@ -51,6 +71,13 @@ export class GameView extends Component {
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
           />
+          <button
+            onClick={this.setupNewGame}
+            className="flex items-center justify-center cursor-default border border-purple-500 rounded-3xl px-8 bg-white ml-16"
+          >
+            <span className="text-4xl">🎲</span>
+            <span className="ml-4 text-xl">New Game</span>
+          </button>
         </header>
         <section className="flex center justify-around py-8 px-4">
           <DrawingPanel
@@ -60,7 +87,7 @@ export class GameView extends Component {
           <DrawingPanel
             drawingMeta={this.state.currentMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
-            isReadOnly={false}
+            isReadOnly={this.areYouWinningSon()}
           />
         </section>
       </div>

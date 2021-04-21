@@ -100,7 +100,6 @@ const DRAWING_0 = [
   "#FFFFFF",
   "#FFFFFF",
 ];
-
 const DRAWING_1 = [
   "#60A5FA",
   "#60A5FA",
@@ -510,4 +509,9 @@ const DRAWING_4 = [
   "#FFFFFF",
 ];
 
-export { DRAWING_0, DRAWING_1, DRAWING_2, DRAWING_3, DRAWING_4 };
+const DRAWINGS = {
+  cleanSlate: DRAWING_0,
+  presetDrawings: [DRAWING_1, DRAWING_2, DRAWING_3, DRAWING_4],
+};
+
+export default DRAWINGS;

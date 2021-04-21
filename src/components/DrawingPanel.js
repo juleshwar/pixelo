@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
-import { DRAWING_0 } from "../constants/components/DrawingPanelConstants";
+import DRAWINGS from "../constants/components/DrawingPanelConstants";
 
 export class DrawingPanel extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ export class DrawingPanel extends Component {
   };
 
   static defaultProps = {
-    drawingMeta: DRAWING_0,
+    drawingMeta: DRAWINGS.cleanSlate,
     isReadOnly: true,
   };
 
