@@ -53,7 +53,11 @@ export class DrawingPanel extends Component {
                 ? null
                 : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
             }
-            onMouseDown={this.handleMouseDownOnColorCell.bind(this, cellIndex)}
+            onMouseDown={
+              this.props.isReadOnly
+                ? null
+                : this.handleMouseDownOnColorCell.bind(this, cellIndex)
+            }
           >
             <ColorCell index={cellIndex} color={cellColor} size={16} />
           </td>
