@@ -68,10 +68,10 @@ export class GameView extends Component {
           />
           <button
             onClick={this.setupNewGame}
-            className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl md:px-8 bg-white ml-16"
+            className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl bg-white ml-16 md:px-8"
           >
-            <span className="text-4xl">🎲</span>
-            <span className="hidden text-xl md:show md:ml-4">
+            <span className="text-l md:text-4xl">🎲</span>
+            <span className="hidden text-xl text-m md:block md:ml-4">
               {isSonWinning ? "Restart" : "New Game"}
             </span>
           </button>
