@@ -24,7 +24,7 @@ jobs:
       - name: Github Build & Deploy Action
         uses: jeoy/github-deploy-actions@v1.0.1
         env:
-          COMMIT_EMAIL: ""
+          COMMIT_EMAIL: "bjuleshwar@gmail.com"
           ACCESS_TOKEN: ${{ secrets.BUILD_AND_DEPLOY_ACCESS_TOKEN }}
           BASE_BRANCH: master
           DEPLOY_BRANCH: surge-pages
