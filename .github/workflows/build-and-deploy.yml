@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploy website
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - run: echo "Checking out master branch"
+      - name: Checkout
+        uses: actions/checkout@master
+        
+      - run: echo "Installing dependency and building"
+      - name: Github Build & Deploy Action
+        uses: jeoy/github-deploy-actions@v1.0.1
+        env:
+          COMMIT_EMAIL: ""
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BASE_BRANCH: master
+          DEPLOY_BRANCH: surge-pages
+          BUILD_SCRIPT: yarn && yarn build
+          FOLDER: build
+          
+      - run: echo "Installing surge"
+      - name: Install *surge*
+        run: npm i -g surge
+      
+      - run: echo "Checking out surge-pages branch"
+      - name: Checkout
+        uses: actions/checkout@surge-pages
+          
+      - run: echo "Deploying"
+      - name: Deploy via surge
+        run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+          
