@@ -19,10 +19,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - run: echo "Checking out master branch"
-      - name: Checkout
-        uses: actions/checkout@master
         
       - run: echo "Installing dependency and building"
       - name: Github Build & Deploy Action
@@ -40,10 +36,13 @@ jobs:
         run: npm i -g surge
       
       - run: echo "Checking out surge-pages branch"
-      - name: Checkout
-        uses: actions/checkout@surge-pages
+      - name: Checkout surge-pages
+        uses: actions/checkout@v2
+        with:
+          ref: surge-pages
           
       - run: echo "Deploying"
       - name: Deploy via surge
         run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
           
+    
