@@ -64,7 +64,7 @@ export class DrawingPanel extends Component {
             <ColorCell
               index={cellIndex}
               color={cellColor}
-              className="h-10 w-10 md:w-16 md:h-16"
+              className="h-7 w-7 md:w-16 md:h-16"
             />
           </td>
         );
