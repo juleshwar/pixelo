@@ -1,15 +1,22 @@
-const COLOR_PALETTE = [
-  "#FFFFFF",
-  "#000000",
-  "#9CA3AF",
-  "#FBBF24",
-  "#34D399",
-  "#60A5FA",
-  "#818CF8",
-  "#EF4444",
-  "#F472B6",
-  "#F59E0B",
-  "#059669",
-];
+const COLORS = {
+  WHITE: "#FFFFFF",
+  BLACK: "#000000",
+  GREY: "#9CA3AF",
+  YELLOW: "#FBBF24",
+  GREEN: "#34D399",
+  BLUE: "#60A5FA",
+  PURPLE: "#818CF8",
+  RED: "#EF4444",
+  PINK: "#F472B6",
+  ORANGE: "#F59E0B",
+  DARK_GREEN: "#059669",
+};
 
-export { COLOR_PALETTE };
+let COLOR_PALETTE = [];
+for (const colorKey in COLORS) {
+  if (Object.hasOwnProperty.call(COLORS, colorKey)) {
+    COLOR_PALETTE.push(COLORS[colorKey]);
+  }
+}
+
+export { COLORS, COLOR_PALETTE };

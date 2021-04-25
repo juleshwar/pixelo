@@ -17,6 +17,8 @@ export class GameView extends Component {
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
     this.setupNewGame = this.setupNewGame.bind(this);
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
+
+    UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
   }
 
   doUpdateDrawingMeta(colorIndex, eraseColor) {
@@ -31,6 +33,7 @@ export class GameView extends Component {
 
   doUpdateCurrentColor(color) {
     this.setState({ currentColor: color });
+    UtilFunctions.modifyCursorOnColorSelect(color);
   }
 
   areYouWinningSon() {
