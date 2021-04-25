@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DRAWINGS from "../constants/components/DrawingPanelConstants";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
-import { COLOR_PALETTE } from "../constants/components/PaletteBar";
+import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 
 export class GameView extends Component {
