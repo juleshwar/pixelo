@@ -27,15 +27,19 @@ export class DrawingPanel extends Component {
     className: "",
   };
 
-  handleMouseMoveOnColorCell(cellIndex, e) {
-    // only allow when left button is pressed
-    if (e.buttons === 1) {
-      this.props.doUpdateCellColor(cellIndex);
+  triggerUpdateCellColorLogic(cellIndex, buttonClick) {
+    if (!buttonClick) {
+      return;
     }
+    this.props.doUpdateCellColor(cellIndex, buttonClick === 2);
   }
 
-  handleMouseDownOnColorCell(cellIndex) {
-    this.props.doUpdateCellColor(cellIndex);
+  handleMouseMoveOnColorCell(cellIndex, e) {
+    this.triggerUpdateCellColorLogic(cellIndex, e.buttons);
+  }
+
+  handleMouseDownOnColorCell(cellIndex, e) {
+    this.triggerUpdateCellColorLogic(cellIndex, e.buttons);
   }
 
   render() {

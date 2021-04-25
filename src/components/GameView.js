@@ -19,9 +19,13 @@ export class GameView extends Component {
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
   }
 
-  doUpdateDrawingMeta(colorIndex) {
+  doUpdateDrawingMeta(colorIndex, eraseColor) {
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
-    modifiedMeta[colorIndex] = this.state.currentColor;
+    if (eraseColor) {
+      modifiedMeta[colorIndex] = COLOR_PALETTE[0];
+    } else {
+      modifiedMeta[colorIndex] = this.state.currentColor;
+    }
     this.setState({ currentMeta: modifiedMeta });
   }
 
