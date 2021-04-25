@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DRAWINGS from "../constants/components/DrawingPanelConstants";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
-import { COLOR_PALETTE } from "../constants/components/PaletteBar";
+import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 
 export class GameView extends Component {
@@ -17,16 +17,23 @@ export class GameView extends Component {
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
     this.setupNewGame = this.setupNewGame.bind(this);
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
+
+    UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
   }
 
-  doUpdateDrawingMeta(colorIndex) {
+  doUpdateDrawingMeta(colorIndex, eraseColor) {
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
-    modifiedMeta[colorIndex] = this.state.currentColor;
+    if (eraseColor) {
+      modifiedMeta[colorIndex] = COLOR_PALETTE[0];
+    } else {
+      modifiedMeta[colorIndex] = this.state.currentColor;
+    }
     this.setState({ currentMeta: modifiedMeta });
   }
 
   doUpdateCurrentColor(color) {
     this.setState({ currentColor: color });
+    UtilFunctions.modifyCursorOnColorSelect(color);
   }
 
   areYouWinningSon() {
