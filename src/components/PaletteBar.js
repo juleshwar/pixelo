@@ -7,6 +7,11 @@ export class PaletteBar extends Component {
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     selectedColor: PropTypes.string,
     doUpdateSelectedColor: PropTypes.func,
+    className: PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: "",
   };
 
   render() {
@@ -21,7 +26,13 @@ export class PaletteBar extends Component {
         />
       );
     });
-    return <nav className="flex border border-black">{paletteList}</nav>;
+    return (
+      <nav
+        className={"flex border border-black w-auto " + this.props.className}
+      >
+        {paletteList}
+      </nav>
+    );
   }
 }
 
