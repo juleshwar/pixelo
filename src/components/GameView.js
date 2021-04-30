@@ -6,6 +6,7 @@ import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
+import SvgUndoArrow from "./svgs/UndoArrow";
 
 export class GameView extends Component {
   constructor(props) {
@@ -114,14 +115,14 @@ export class GameView extends Component {
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
-              U
+              <SvgUndoArrow />
             </button>
             <button
               className="undo h-full w-auto px-3 py-1 border border-black disabled:opacity-50 disabled:border-gray-500 md:py-3 md:px-5"
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
-              R
+              <SvgUndoArrow />
             </button>
             <button
               onClick={this.setupNewGame}
