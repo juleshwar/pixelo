@@ -7,6 +7,7 @@ import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
 import SvgUndoArrow from "./svgs/UndoArrow";
+import hotkeys from "hotkeys-js";
 
 export class GameView extends Component {
   constructor(props) {
@@ -24,6 +25,30 @@ export class GameView extends Component {
     this.onRedo = this.onRedo.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
+  }
+
+  componentDidMount() {
+    this.bindHotkeyCombos();
+  }
+
+  componentWillUnmount() {
+    this.unbindHotkeyCombos();
+  }
+
+  bindHotkeyCombos() {
+    hotkeys("command+z, ctrl+z", this.onUndo);
+    hotkeys(
+      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
+      this.onRedo
+    );
+  }
+
+  unbindHotkeyCombos() {
+    hotkeys.unbind("command+z, ctrl+z", this.onUndo);
+    hotkeys.unbind(
+      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
+      this.onRedo
+    );
   }
 
   doUpdateDrawingMeta(colorIndex, eraseColor) {
@@ -80,18 +105,24 @@ export class GameView extends Component {
 
   //#region Actions
   onUndo() {
+    if (!ActionStack.isUndoPossible || this.areYouWinningSon()) {
+      return;
+    }
     const { cellIndex, fromColor } = ActionStack.undo();
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
     modifiedMeta[cellIndex] = fromColor;
     this.setState({ currentMeta: modifiedMeta });
   }
   onRedo() {
+    if (!ActionStack.isRedoPossible || this.areYouWinningSon()) {
+      return;
+    }
     const { cellIndex, toColor } = ActionStack.redo();
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
     modifiedMeta[cellIndex] = toColor;
     this.setState({ currentMeta: modifiedMeta });
   }
-  //#region Actions
+  //#endregion Actions
 
   render() {
     let isSonWinning = this.areYouWinningSon();
@@ -111,20 +142,24 @@ export class GameView extends Component {
           />
           <div className="flex mt-3 justify-between w-1/2 md:w-3/12 md:mt-0 md:flex-1 md:ml-8">
             <button
-              className="undo h-full w-auto px-3 py-1 border border-black disabled:opacity-50 disabled:border-gray-500 md:py-3 md:px-5"
+              title="Undo"
+              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
               <SvgUndoArrow />
             </button>
             <button
-              className="undo h-full w-auto px-3 py-1 border border-black disabled:opacity-50 disabled:border-gray-500 md:py-3 md:px-5"
+              title="Redo"
+              style={{ transform: "scale(-1, 1)" }}
+              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
               <SvgUndoArrow />
             </button>
             <button
+              title="Start a new game"
               onClick={this.setupNewGame}
               className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl bg-white md:px-8"
             >

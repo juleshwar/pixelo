@@ -1,8 +1,11 @@
+import { Component } from "react";
+import PageHome from "./routes/PageHome";
 import "./App.css";
-import GameView from "./components/GameView";
 
-function App() {
-  return <GameView />;
+export class App extends Component {
+  render() {
+    return <PageHome />;
+  }
 }
 
 export default App;
