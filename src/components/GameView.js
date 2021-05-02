@@ -142,20 +142,24 @@ export class GameView extends Component {
           />
           <div className="flex mt-3 justify-between w-1/2 md:w-3/12 md:mt-0 md:flex-1 md:ml-8">
             <button
-              className="undo h-full w-auto px-3 py-1 border border-black disabled:opacity-50 disabled:border-gray-500 md:py-3 md:px-5"
+              title="Undo"
+              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
               <SvgUndoArrow />
             </button>
             <button
-              className="undo h-full w-auto px-3 py-1 border border-black disabled:opacity-50 disabled:border-gray-500 md:py-3 md:px-5"
+              title="Redo"
+              style={{ transform: "scale(-1, 1)" }}
+              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
               <SvgUndoArrow />
             </button>
             <button
+              title="Start a new game"
               onClick={this.setupNewGame}
               className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl bg-white md:px-8"
             >
