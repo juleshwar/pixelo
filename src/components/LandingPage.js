@@ -1,7 +1,49 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
+import * as UtilMethods from "../services/UtilFunctions";
 
 export class LandingPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      colorIndex: 0,
+      cursorColorInterval: null,
+    };
+  }
+
+  componentDidMount() {
+    this.addCursorColorAnimation();
+  }
+
+  addCursorColorAnimation() {
+    /* Setting an animation which changes the cursor color every second :) */
+
+    /* Step 1: Initial color change */
+    UtilMethods.modifyCursorOnColorSelect(COLOR_PALETTE[this.state.colorIndex]);
+    this.setState({ colorIndex: this.state.colorIndex + 1 });
+
+    /* Step 2: Subsequent color changes */
+    const colorsLength = COLOR_PALETTE.length;
+    const intervalId = window.setInterval(() => {
+      UtilMethods.modifyCursorOnColorSelect(
+        COLOR_PALETTE[this.state.colorIndex]
+      );
+      if (this.state.colorIndex === colorsLength - 1) {
+        this.setState({ colorIndex: 0 });
+      } else {
+        this.setState({ colorIndex: this.state.colorIndex + 1 });
+      }
+    }, 1000);
+
+    this.setState({ cursorColorInterval: intervalId });
+  }
+
+  componentWillUnmount() {
+    window.clearInterval(this.state.cursorColorInterval);
+  }
+
   render() {
     return (
       <div className="w-full h-screen flex flex-col items-center justify-center">
