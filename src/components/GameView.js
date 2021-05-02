@@ -7,6 +7,7 @@ import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
 import SvgUndoArrow from "./svgs/UndoArrow";
+import hotkeys from "hotkeys-js";
 
 export class GameView extends Component {
   constructor(props) {
@@ -24,6 +25,30 @@ export class GameView extends Component {
     this.onRedo = this.onRedo.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
+  }
+
+  componentDidMount() {
+    this.bindHotkeyCombos();
+  }
+
+  componentWillUnmount() {
+    this.unbindHotkeyCombos();
+  }
+
+  bindHotkeyCombos() {
+    hotkeys("command+z, ctrl+z", this.onUndo);
+    hotkeys(
+      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
+      this.onRedo
+    );
+  }
+
+  unbindHotkeyCombos() {
+    hotkeys.unbind("command+z, ctrl+z", this.onUndo);
+    hotkeys.unbind(
+      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
+      this.onRedo
+    );
   }
 
   doUpdateDrawingMeta(colorIndex, eraseColor) {
@@ -80,18 +105,24 @@ export class GameView extends Component {
 
   //#region Actions
   onUndo() {
+    if (!ActionStack.isUndoPossible || this.areYouWinningSon()) {
+      return;
+    }
     const { cellIndex, fromColor } = ActionStack.undo();
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
     modifiedMeta[cellIndex] = fromColor;
     this.setState({ currentMeta: modifiedMeta });
   }
   onRedo() {
+    if (!ActionStack.isRedoPossible || this.areYouWinningSon()) {
+      return;
+    }
     const { cellIndex, toColor } = ActionStack.redo();
     const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
     modifiedMeta[cellIndex] = toColor;
     this.setState({ currentMeta: modifiedMeta });
   }
-  //#region Actions
+  //#endregion Actions
 
   render() {
     let isSonWinning = this.areYouWinningSon();
