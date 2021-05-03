@@ -7,7 +7,6 @@ import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
 import SvgUndoArrow from "./svgs/UndoArrow";
-import hotkeys from "hotkeys-js";
 
 export class GameView extends Component {
   constructor(props) {
@@ -23,6 +22,7 @@ export class GameView extends Component {
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
     this.onUndo = this.onUndo.bind(this);
     this.onRedo = this.onRedo.bind(this);
+    this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
   }
@@ -36,19 +36,29 @@ export class GameView extends Component {
   }
 
   bindHotkeyCombos() {
-    hotkeys("command+z, ctrl+z", this.onUndo);
-    hotkeys(
-      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
-      this.onRedo
-    );
+    window.addEventListener("keydown", this.hotkeyComboHandler);
   }
 
   unbindHotkeyCombos() {
-    hotkeys.unbind("command+z, ctrl+z", this.onUndo);
-    hotkeys.unbind(
-      "command+shift+z, ctrl+shift+z, command+y, ctrl+shift+y",
-      this.onRedo
-    );
+    window.removeEventListener("keydown", this.hotkeyComboHandler);
+  }
+
+  hotkeyComboHandler(e) {
+    switch (true) {
+      case (e.metaKey && e.shiftKey && e.code === "KeyZ") /* Mac */ ||
+        (e.metaKey && e.code === "KeyY") /* Mac */ ||
+        (e.ctrlKey && e.shiftKey && e.code === "KeyZ") /* Windows */ ||
+        (e.ctrlKey && e.code === "KeyY") /* Windows */:
+        this.onRedo();
+        break;
+
+      case (e.metaKey && e.code === "KeyZ") /* Mac */ ||
+        (e.ctrlKey && e.code === "KeyZ") /* Windows */:
+        this.onUndo();
+        break;
+
+      default:
+    }
   }
 
   doUpdateDrawingMeta(colorIndex, eraseColor) {
