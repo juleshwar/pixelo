@@ -18,8 +18,7 @@ class ActionStack {
    */
 
   constructor() {
-    this.stack = [];
-    this.actionPointer = -1;
+    this.clearStack();
   }
 
   stack = [];
@@ -37,6 +36,11 @@ class ActionStack {
     this.stack.length = this.actionPointer + 1;
     this.stack.push(actionItem);
     this.actionPointer = this.stack.length - 1;
+  }
+
+  clearStack() {
+    this.stack.length = 0;
+    this.actionPointer = -1;
   }
 
   undo() {

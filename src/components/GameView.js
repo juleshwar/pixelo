@@ -57,7 +57,31 @@ export class GameView extends Component {
         this.onUndo();
         break;
 
+      case e.code.startsWith("Digit") || e.code === "Minus":
+        const colorKeyMapping = {
+          1: 0,
+          2: 1,
+          3: 2,
+          4: 3,
+          5: 4,
+          6: 5,
+          7: 6,
+          8: 7,
+          9: 8,
+          0: 9,
+          Minus: 10,
+        };
+        const digitPressed = e.code.startsWith("Digit")
+          ? e.code.slice(5)
+          : e.code;
+        const colorKey = colorKeyMapping[digitPressed];
+        if (colorKey !== undefined) {
+          this.doUpdateCurrentColor(COLOR_PALETTE[colorKey]);
+        }
+        break;
+
       default:
+        break;
     }
   }
 
@@ -111,6 +135,7 @@ export class GameView extends Component {
   setupNewGame() {
     this.setState({ currentMeta: DRAWINGS.cleanSlate });
     this.setupRandomTemplate();
+    ActionStack.clearStack();
   }
 
   //#region Actions
