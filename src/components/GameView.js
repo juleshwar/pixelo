@@ -135,6 +135,7 @@ export class GameView extends Component {
   setupNewGame() {
     this.setState({ currentMeta: DRAWINGS.cleanSlate });
     this.setupRandomTemplate();
+    ActionStack.clearStack();
   }
 
   //#region Actions
