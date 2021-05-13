@@ -1,15 +1,13 @@
 const COLORS = {
   WHITE: "#FFFFFF",
-  BLACK: "#000000",
+  BLACK: "#1F2937",
   GREY: "#9CA3AF",
-  YELLOW: "#FBBF24",
-  GREEN: "#34D399",
+  GREEN: "#10B981",
   BLUE: "#60A5FA",
-  PURPLE: "#818CF8",
-  RED: "#EF4444",
-  PINK: "#F472B6",
+  RED: "#BE185D",
+  PINK: "#F87171",
   ORANGE: "#F59E0B",
-  DARK_GREEN: "#059669",
+  PURPLE: "#8B5CF6",
 };
 
 let COLOR_PALETTE = [];
