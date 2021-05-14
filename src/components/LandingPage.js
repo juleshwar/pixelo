@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import * as UtilMethods from "../services/UtilFunctions";
+import PixeloLogo from "./svgs/PixeloLogo";
 
 export class LandingPage extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ export class LandingPage extends Component {
   render() {
     return (
       <div className="w-full h-screen flex flex-col items-center justify-center">
-        <h1 className="text-7xl">Pixelo</h1>
+        <PixeloLogo className="h-auto w-64 sm:w-1/2 lg:w-5/12 xl:w-120" />
         <Link to="/play" className="mt-10 text-blue-500">
           click here to play
         </Link>

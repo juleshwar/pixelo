@@ -182,7 +182,7 @@ export class GameView extends Component {
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
-              <SvgUndoArrow />
+              <SvgUndoArrow className="w-6" />
             </button>
             <button
               title="Redo"
@@ -191,7 +191,7 @@ export class GameView extends Component {
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
-              <SvgUndoArrow />
+              <SvgUndoArrow className="w-6" />
             </button>
             <button
               title="Start a new game"
