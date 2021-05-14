@@ -4,7 +4,11 @@ import "./App.css";
 
 export class App extends Component {
   render() {
-    return <PageHome />;
+    return (
+      <main className="bg-gray-100">
+        <PageHome />
+      </main>
+    );
   }
 }
 

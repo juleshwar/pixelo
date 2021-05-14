@@ -17,14 +17,12 @@ function modifyCursorOnColorSelect(color) {
     [COLORS.WHITE]: "white",
     [COLORS.BLACK]: "black",
     [COLORS.GREY]: "grey",
-    [COLORS.YELLOW]: "yellow",
     [COLORS.GREEN]: "green",
     [COLORS.BLUE]: "blue",
     [COLORS.PURPLE]: "purple",
     [COLORS.RED]: "red",
     [COLORS.PINK]: "pink",
     [COLORS.ORANGE]: "orange",
-    [COLORS.DARK_GREEN]: "dark-green",
   };
 
   // without setTimeout, the cursor only updates if a mousemove occurs. Else it stays the same as the previous color
