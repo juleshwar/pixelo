@@ -75,8 +75,9 @@ export class GameView extends Component {
           ? e.code.slice(5)
           : e.code;
         const colorKey = colorKeyMapping[digitPressed];
-        if (colorKey !== undefined) {
-          this.doUpdateCurrentColor(COLOR_PALETTE[colorKey]);
+        const colorAtKey = COLOR_PALETTE[colorKey];
+        if (colorKey !== undefined && colorAtKey !== undefined) {
+          this.doUpdateCurrentColor(colorAtKey);
         }
         break;
 
