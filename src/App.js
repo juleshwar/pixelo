@@ -5,7 +5,7 @@ import "./App.css";
 export class App extends Component {
   render() {
     return (
-      <main className="bg-gray-100">
+      <main className="bg-gray-100 h-screen overflow-hidden">
         <RouteHome />
       </main>
     );

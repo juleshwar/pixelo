@@ -162,7 +162,7 @@ export class GameView extends Component {
   render() {
     let isSonWinning = this.areYouWinningSon();
 
-    let parentClasses = "flex flex-col h-screen";
+    let parentClasses = "flex flex-col";
     if (isSonWinning) {
       parentClasses += " bg-green-700";
     }
