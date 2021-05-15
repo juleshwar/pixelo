@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import PageGameView from "./PageGameView";
-import LandingPage from "../components/LandingPage";
+import RoutePlay from "./RoutePlay";
+import RouteLanding from "./RouteLanding";
 
-export class PageHome extends Component {
+export class RouteHome extends Component {
   render() {
     return (
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            <LandingPage />
+            <RouteLanding />
           </Route>
           <Route path="/play">
-            <PageGameView />;
+            <RoutePlay />;
           </Route>
         </Switch>
       </BrowserRouter>
@@ -20,4 +20,4 @@ export class PageHome extends Component {
   }
 }
 
-export default PageHome;
+export default RouteHome;
