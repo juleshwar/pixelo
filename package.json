@@ -41,7 +41,6 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.1.1",
-    "@svgr/cli": "^5.5.0",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9",
     "postcss": "^7",

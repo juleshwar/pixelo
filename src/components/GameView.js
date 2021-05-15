@@ -6,7 +6,7 @@ import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
-import SvgUndoArrow from "./svgs/UndoArrow";
+import { ReactComponent as SvgUndoArrow } from "../assets/svgs/undo-arrow.svg";
 
 export class GameView extends Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import * as UtilMethods from "../services/UtilFunctions";
-import TransparentPixeloLogo from "./svgs/TransparentPixeloLogo";
+import { ReactComponent as TransparentPixeloLogo } from "../assets/svgs/transparent_pixelo_logo.svg";
 
 export class LandingPage extends Component {
   constructor(props) {
