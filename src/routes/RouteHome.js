@@ -12,7 +12,7 @@ export class RouteHome extends Component {
             <RouteLanding />
           </Route>
           <Route path="/play">
-            <RoutePlay />;
+            <RoutePlay />
           </Route>
         </Switch>
       </BrowserRouter>
