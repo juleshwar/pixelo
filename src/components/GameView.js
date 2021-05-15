@@ -163,9 +163,8 @@ export class GameView extends Component {
     let isSonWinning = this.areYouWinningSon();
 
     let parentClasses = "flex flex-col";
-    if (isSonWinning) {
-      parentClasses += " bg-green-700";
-    }
+
+    /* TODO: Handle layout when user wins */
 
     return (
       <div className={parentClasses}>
