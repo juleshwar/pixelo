@@ -5,7 +5,6 @@ export class ColorCell extends Component {
   static propTypes = {
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    content: PropTypes.element,
     className: PropTypes.string,
   };
 
@@ -18,10 +17,10 @@ export class ColorCell extends Component {
     return (
       <div
         className={classes}
-        style={Object.assign({}, { background: this.props.color })}
+        style={{ background: this.props.color }}
         onClick={this.props.onClick}
       >
-        {this.props.content}
+        {this.props.children}
       </div>
     );
   }
