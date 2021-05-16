@@ -17,12 +17,10 @@ export class SelectableColorCell extends Component {
   render() {
     let { isSelected, className, ...modifiedProps } = this.props;
 
-    const classes = className + " flex items-center justify-center";
-
     return (
       <ColorCell
         {...modifiedProps}
-        className={classes}
+        className={`${className} flex items-center justify-center`}
         onClick={this.props.onClick}
       >
         {this.props.isSelected && <span className="text-s">✅</span>}

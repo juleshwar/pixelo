@@ -64,8 +64,7 @@ export class DrawingPanel extends Component {
               <ColorCell
                 index={cellIndex}
                 color={cellColor}
-                cellSize={7}
-                className="shadow-color-cell"
+                className="shadow-color-cell h-7 w-7"
               />
             </div>
           );
