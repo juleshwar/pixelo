@@ -209,7 +209,7 @@ export class GameView extends Component {
             </PixeloButton>
           </div>
         </header>
-        <section className="flex flex-1 flex-col items-center py-8 px-4 md:justify-around md:flex-row">
+        <section className="flex flex-1 flex-col items-center py-7 px-4 md:justify-around md:flex-row">
           <DrawingPanel
             className=""
             drawingMeta={this.state.templateMeta}

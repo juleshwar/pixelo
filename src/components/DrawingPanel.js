@@ -65,11 +65,7 @@ export class DrawingPanel extends Component {
                 : this.handleMouseDownOnColorCell.bind(this, cellIndex)
             }
           >
-            <ColorCell
-              index={cellIndex}
-              color={cellColor}
-              className="h-7 w-7 md:w-16 md:h-16"
-            />
+            <ColorCell index={cellIndex} color={cellColor} cellSize={7} />
           </td>
         );
       }
