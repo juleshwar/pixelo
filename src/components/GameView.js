@@ -178,7 +178,7 @@ export class GameView extends Component {
             colors={COLOR_PALETTE}
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
-            className="hidden landscape:flex"
+            className="hidden landscape:grid"
           />
           <div className="flex justify-between w-7/12 landscape:w-1/4">
             <PixeloButton
@@ -209,7 +209,7 @@ export class GameView extends Component {
             </PixeloButton>
           </div>
         </header>
-        <section className="flex flex-1 flex-col items-center py-7 px-4 md:justify-around md:flex-row">
+        <section className="grid grid-rows-2 flex-1 gap-7 justify-items-center py-7 px-4 md:justify-around md:flex-row landscape:grid-cols-2 landscape:grid-rows-none landscape:py-3.5">
           <DrawingPanel
             className=""
             drawingMeta={this.state.templateMeta}
@@ -227,7 +227,7 @@ export class GameView extends Component {
             colors={COLOR_PALETTE}
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
-            className="block landscape:hidden"
+            className="grid landscape:hidden"
           />
         </footer>
       </div>

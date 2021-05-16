@@ -29,9 +29,7 @@ export class PaletteBar extends Component {
     });
     return (
       <nav
-        className={
-          `grid grid-cols-${propColors.length} gap-2 ` + this.props.className
-        }
+        className={`${this.props.className} grid grid-cols-${propColors.length} gap-x-2`}
       >
         {paletteList}
       </nav>
