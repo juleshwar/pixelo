@@ -6,6 +6,7 @@ export class ColorCell extends Component {
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
     className: PropTypes.string,
+    cellSize: PropTypes.number.isRequired,
   };
 
   static defaultProps = {
@@ -13,7 +14,11 @@ export class ColorCell extends Component {
   };
 
   render() {
-    const classes = "relative " + this.props.className;
+    const cellSize = this.props.cellSize;
+    const classes =
+      "relative rounded " +
+      (cellSize ? `h-${cellSize} w-${cellSize} ` : "") +
+      this.props.className;
     return (
       <div
         className={classes}

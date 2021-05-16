@@ -6,6 +6,9 @@ module.exports = {
       spacing: {
         120: "40rem",
       },
+      screens: {
+        landscape: { raw: "(orientation: landscape)" },
+      },
     },
   },
   variants: {

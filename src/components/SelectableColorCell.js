@@ -25,7 +25,7 @@ export class SelectableColorCell extends Component {
         className={classes}
         onClick={this.props.onClick}
       >
-        {this.props.isSelected && <span>✅</span>}
+        {this.props.isSelected && <span className="text-s">✅</span>}
       </ColorCell>
     );
   }

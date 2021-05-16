@@ -7,6 +7,9 @@ import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
 import { ReactComponent as SvgUndoArrow } from "../assets/svgs/undo-arrow.svg";
+import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.svg";
+import { Link } from "react-router-dom";
+import PixeloButton from "./PixeloButton";
 
 export class GameView extends Component {
   constructor(props) {
@@ -163,49 +166,50 @@ export class GameView extends Component {
   render() {
     let isSonWinning = this.areYouWinningSon();
 
-    let parentClasses = "flex flex-col";
-
     /* TODO: Handle layout when user wins */
 
     return (
-      <div className={parentClasses}>
-        <header className="flex flex-col justify-center py-4 items-center md:flex-row md:w-7/12 md:justify-between md:self-center">
+      <div className="flex flex-col h-full">
+        <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14">
+          <Link to="/">
+            <PixeloIcon64 className="w-4" />
+          </Link>
           <PaletteBar
             colors={COLOR_PALETTE}
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
+            className="hidden landscape:flex"
           />
-          <div className="flex mt-3 justify-between w-1/2 md:w-3/12 md:mt-0 md:flex-1 md:ml-8">
-            <button
+          <div className="flex justify-between w-7/12 landscape:w-1/4">
+            <PixeloButton
+              title="Start a new game"
+              onClick={this.setupNewGame}
+              className="px-4"
+            >
+              <span className="text-xs whitespace-nowrap">
+                {isSonWinning ? "Restart" : "New Game"}
+              </span>
+            </PixeloButton>
+            <PixeloButton
               title="Undo"
-              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
+              buttonSize={8}
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
-              <SvgUndoArrow className="w-6" />
-            </button>
-            <button
+              <SvgUndoArrow className="w-3" />
+            </PixeloButton>
+            <PixeloButton
               title="Redo"
+              buttonSize={8}
               style={{ transform: "scale(-1, 1)" }}
-              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
-              <SvgUndoArrow className="w-6" />
-            </button>
-            <button
-              title="Start a new game"
-              onClick={this.setupNewGame}
-              className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl bg-white md:px-8"
-            >
-              <span className="text-l md:text-4xl">🎲</span>
-              <span className="hidden text-xl text-m md:block md:ml-4">
-                {isSonWinning ? "Restart" : "New Game"}
-              </span>
-            </button>
+              <SvgUndoArrow className="w-3" />
+            </PixeloButton>
           </div>
         </header>
-        <section className="flex flex-col items-center py-8 px-4 md:justify-around md:flex-row">
+        <section className="flex flex-1 flex-col items-center py-8 px-4 md:justify-around md:flex-row">
           <DrawingPanel
             className=""
             drawingMeta={this.state.templateMeta}
@@ -218,13 +222,13 @@ export class GameView extends Component {
             isReadOnly={isSonWinning}
           />
         </section>
-        <footer
-          className={
-            "flex justify-center mt-auto py-6 " +
-            (isSonWinning ? "show" : "hidden")
-          }
-        >
-          <span className="text-5xl text-white">You won! 🥳</span>
+        <footer className="flex py-4 justify-center justify-self-end">
+          <PaletteBar
+            colors={COLOR_PALETTE}
+            selectedColor={this.state.currentColor}
+            doUpdateSelectedColor={this.doUpdateCurrentColor}
+            className="block landscape:hidden"
+          />
         </footer>
       </div>
     );
