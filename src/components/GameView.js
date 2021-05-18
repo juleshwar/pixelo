@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import DRAWINGS from "../constants/components/DrawingPanelConstants";
+import PixeloStateHandler from "../services/PixeloStateHandler";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
-import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
 import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
@@ -13,8 +12,8 @@ export class GameView extends Component {
     super(props);
     this.state = {
       templateMeta: UtilFunctions.getRandomTemplate(),
-      currentMeta: DRAWINGS.cleanSlate,
-      currentColor: COLOR_PALETTE[1],
+      currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+      currentColor: PixeloStateHandler.COLOR_PALETTE[1],
     };
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
@@ -76,7 +75,7 @@ export class GameView extends Component {
           : e.code;
         const colorKey = colorKeyMapping[digitPressed];
         if (colorKey !== undefined) {
-          this.doUpdateCurrentColor(COLOR_PALETTE[colorKey]);
+          this.doUpdateCurrentColor(PixeloStateHandler.COLOR_PALETTE[colorKey]);
         }
         break;
 
@@ -90,7 +89,7 @@ export class GameView extends Component {
     let toColor;
     let fromColor = modifiedMeta[colorIndex];
     if (eraseColor) {
-      toColor = COLOR_PALETTE[0];
+      toColor = PixeloStateHandler.COLOR_PALETTE[0];
     } else {
       toColor = this.state.currentColor;
     }
@@ -133,7 +132,9 @@ export class GameView extends Component {
   }
 
   setupNewGame() {
-    this.setState({ currentMeta: DRAWINGS.cleanSlate });
+    this.setState({
+      currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+    });
     this.setupRandomTemplate();
     ActionStack.clearStack();
   }
@@ -171,7 +172,7 @@ export class GameView extends Component {
       <div className={parentClasses}>
         <header className="flex flex-col justify-center py-4 items-center md:flex-row md:w-7/12 md:justify-between md:self-center">
           <PaletteBar
-            colors={COLOR_PALETTE}
+            colors={PixeloStateHandler.COLOR_PALETTE}
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
           />
