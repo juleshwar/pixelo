@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PageGameView from "./PageGameView";
 import LandingPage from "../components/LandingPage";
 import PixeloStateHandler from "../services/PixeloStateHandler";
+import PageLoading from "./PageLoading";
 
 export class PageHome extends Component {
   constructor(props) {
@@ -23,22 +24,10 @@ export class PageHome extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            {this.state.hasDataLoaded ? (
-              <LandingPage />
-            ) : (
-              <div className="grid place-items-center h-screen">
-                Data loading...
-              </div>
-            )}
+            {this.state.hasDataLoaded ? <LandingPage /> : <PageLoading />}
           </Route>
           <Route path="/play">
-            {this.state.hasDataLoaded ? (
-              <PageGameView />
-            ) : (
-              <div className="grid place-items-center h-screen">
-                Data loading...
-              </div>
-            )}
+            {this.state.hasDataLoaded ? <PageGameView /> : <PageLoading />}
           </Route>
         </Switch>
       </BrowserRouter>
