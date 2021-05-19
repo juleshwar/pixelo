@@ -22,7 +22,7 @@ jobs:
           node-version: '14.15.0'
 
       - name: Build 
-        run: yarn && REACT_APP_AIRTABLE_API_SECRET=${{ secrets.SURGE_DOMAIN }} yarn build
+        run: yarn && REACT_APP_AIRTABLE_API_SECRET=${{ secrets.REACT_APP_AIRTABLE_API_SECRET }} yarn build
         
       - name: Install *surge*
         run: npm i -g surge
