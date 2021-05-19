@@ -1,18 +1,19 @@
-import DRAWINGS from "../constants/components/DrawingPanelConstants";
-import { COLORS } from "../constants/components/PaletteBarConstants";
+import PixeloStateHandler from "./PixeloStateHandler";
 
 function compareDrawingMeta(metaA, metaB) {
   return String(metaA) === String(metaB);
 }
 
 function getRandomTemplate() {
+  const DRAWINGS = PixeloStateHandler.state.DRAWINGS;
   const drawingIndex = Math.floor(
     Math.random() * DRAWINGS.presetDrawings.length
   );
   return DRAWINGS.presetDrawings[drawingIndex];
 }
 
-function modifyCursorOnColorSelect(color) {
+async function modifyCursorOnColorSelect(color) {
+  const COLORS = PixeloStateHandler.state.COLORS;
   const cursorNameMap = {
     [COLORS.WHITE]: "white",
     [COLORS.BLACK]: "black",

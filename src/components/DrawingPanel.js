@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
-import DRAWINGS from "../constants/components/DrawingPanelConstants";
+import PixeloStateHandler from "../services/PixeloStateHandler";
 
 export class DrawingPanel extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export class DrawingPanel extends Component {
   };
 
   static defaultProps = {
-    drawingMeta: DRAWINGS.cleanSlate,
+    drawingMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
     isReadOnly: true,
     className: "",
   };
