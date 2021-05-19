@@ -14,6 +14,7 @@ export class LoadingIcon extends Component {
   }
 
   async animatePixeloIcon() {
+    const ANIMATION_DELAY = 500;
     const pixeloIconSvg = this.pixeloIconRef.current;
     const PALETTE = [
       "#1F2937",
@@ -32,7 +33,7 @@ export class LoadingIcon extends Component {
         `#${String.fromCharCode(i)}`
       );
       squareAtIndex.style.fill = PALETTE[paletteIndex % PALETTE.length];
-      await this.delay(500);
+      await this.delay(ANIMATION_DELAY);
       squareAtIndex.style.fill = "#FFFFFF";
     };
 
@@ -42,7 +43,7 @@ export class LoadingIcon extends Component {
     for (let i = getCharCode("c"); i >= getCharCode("a"); i--, paletteIndex++) {
       await animateSquareAtIndex(i);
     }
-    await this.delay(500);
+    await this.delay(ANIMATION_DELAY);
   }
 
   async loopPixeloIconAnimation() {
