@@ -5,7 +5,6 @@ export class PixeloInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: "",
       showError: false,
     };
     this.onChangeTextValue = this.onChangeTextValue.bind(this);
@@ -16,6 +15,7 @@ export class PixeloInput extends Component {
     value: PropTypes.string,
     className: PropTypes.string,
     errorMessage: PropTypes.string,
+    onChangeHandler: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -25,14 +25,10 @@ export class PixeloInput extends Component {
     errorMessage: "Please provide a value",
   };
 
-  componentDidMount() {
-    this.setState({ text: this.props.value });
-  }
-
   onChangeTextValue(inputEvent) {
     const textValue = inputEvent.target.value;
     this.setState({ showError: textValue === "" });
-    this.setState({ text: textValue });
+    this.props.onChangeHandler(textValue);
   }
 
   render() {
@@ -42,7 +38,7 @@ export class PixeloInput extends Component {
         <label className="text-xs text-gray-600">{this.props.label}</label>
         <input
           type="text"
-          value={this.state.text}
+          value={this.props.value}
           onChange={this.onChangeTextValue}
           className={
             "rounded outline-none border border-gray-400 w-72 h-10 p-3 text-gray-800 " +

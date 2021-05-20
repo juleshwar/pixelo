@@ -13,6 +13,7 @@ export class DesignDrawing extends Component {
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
     };
+    this.onChangeDrawingName = this.onChangeDrawingName.bind(this);
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
     this.onSubmitDrawing = this.onSubmitDrawing.bind(this);
@@ -46,6 +47,10 @@ export class DesignDrawing extends Component {
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
   }
 
+  onChangeDrawingName(newName) {
+    this.setState({ drawingName: newName });
+  }
+
   render() {
     return (
       <div className="grid py-4 place-items-center gap-3 h-screen">
@@ -66,6 +71,7 @@ export class DesignDrawing extends Component {
             placeholder={"a nice name pls"}
             value={this.state.drawingName}
             errorMessage={"Name give pls. Good name give okay?"}
+            onChangeHandler={this.onChangeDrawingName}
           />
           <button
             className="px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white"
