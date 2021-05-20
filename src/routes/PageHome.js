@@ -25,13 +25,13 @@ export class PageHome extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            {this.state.hasDataLoaded ? <LandingPage /> : <PageLoading />}
+            <LandingPage />
           </Route>
           <Route path="/play">
             {this.state.hasDataLoaded ? <PageGameView /> : <PageLoading />}
           </Route>
           <Route path="/design">
-            {this.state.hasDataLoaded ? <PageDesignDrawing /> : <PageLoading />}
+            <PageDesignDrawing />
           </Route>
         </Switch>
       </BrowserRouter>
