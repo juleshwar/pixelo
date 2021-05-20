@@ -41,13 +41,21 @@ export class DesignDrawing extends Component {
     UtilFunctions.modifyCursorOnColorSelect(color);
   }
 
-  onSubmitDrawing(submitEvent) {
+  async onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
     const payload = {
       name: this.state.drawingName.toUpperCase(),
       template: JSON.stringify(this.state.currentMeta),
     };
-    AirtableService.postData(DRAWINGS_BASE_NAME, payload);
+    await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
+    this.resetDrawing();
+  }
+
+  resetDrawing() {
+    this.setState({
+      drawingMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+    });
+    this.setState({ drawingName: "" });
   }
 
   componentDidMount() {
