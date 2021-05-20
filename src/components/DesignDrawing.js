@@ -43,7 +43,7 @@ export class DesignDrawing extends Component {
   async onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
     const payload = {
-      name: this.state.drawingName.toUpperCase(),
+      name: this.state.drawingName.toUpperCase().replace(" ", "_"),
       template: JSON.stringify(this.state.currentMeta),
     };
     await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
