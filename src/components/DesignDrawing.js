@@ -4,6 +4,9 @@ import * as UtilFunctions from "../services/UtilFunctions";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import PixeloInput from "./PixeloInput";
+import * as AirtableService from "../services/AirtableService";
+
+const DRAWINGS_BASE_NAME = "Preset Drawings";
 
 export class DesignDrawing extends Component {
   constructor(props) {
@@ -40,7 +43,11 @@ export class DesignDrawing extends Component {
 
   onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
-    // TODO: Make POST request to Airtable
+    const payload = {
+      name: this.state.drawingName.toUpperCase(),
+      template: JSON.stringify(this.state.currentMeta),
+    };
+    AirtableService.postData(DRAWINGS_BASE_NAME, payload);
   }
 
   componentDidMount() {
