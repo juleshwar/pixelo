@@ -5,8 +5,7 @@ import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import PixeloInput from "./PixeloInput";
 import * as AirtableService from "../services/AirtableService";
-
-const DRAWINGS_BASE_NAME = "Preset Drawings";
+import { PRESET_DRAWINGS_BASE_NAME } from "../constants/PixeloConstants";
 
 export class DesignDrawing extends Component {
   constructor(props) {

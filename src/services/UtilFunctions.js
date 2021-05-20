@@ -13,7 +13,7 @@ function getRandomTemplate() {
 }
 
 async function modifyCursorOnColorSelect(color) {
-  const COLORS = PixeloStateHandler.state.COLORS;
+  const COLORS = PixeloStateHandler.COLOR_PALETTE_MAP;
   const cursorNameMap = {
     [COLORS.WHITE]: "white",
     [COLORS.BLACK]: "black",
