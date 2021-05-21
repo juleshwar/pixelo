@@ -1,13 +1,12 @@
 <svg width="39" height="64" viewBox="0 0 39 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M13.0663 0.934311V0.480667H12.6126H1.85923C1.09784 0.480667 0.480622 1.09789 0.480622 1.85927V12.6131V13.0668H0.934265H12.6126H13.0663V12.6131V0.934311Z" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="0.480622" y="13.0938" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="0.480622" y="25.7069" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="0.480622" y="38.3201" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<path d="M0.934265 50.9332H0.480622V51.3869V62.1407C0.480622 62.9021 1.09784 63.5193 1.85923 63.5193H11.6877C12.4491 63.5193 13.0663 62.9021 13.0663 62.1407V51.3869V50.9332H12.6126H0.934265Z" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="13.0933" y="0.480667" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="13.0933" y="13.0938" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="13.0933" y="25.7069" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<path d="M26.1596 0.480667H25.7059V0.934311V12.6131V13.0668H26.1596H37.838H38.2916V12.6131V1.85927C38.2916 1.09789 37.6744 0.480667 36.913 0.480667H26.1596Z" fill="white" stroke="black" stroke-width="0.907287"/>
-<rect x="25.7059" y="13.0938" width="12.5857" height="12.5861" fill="white" stroke="black" stroke-width="0.907287"/>
-<path d="M26.1596 25.7069H25.7059V26.1606V37.8394V38.2931H26.1596H36.913C37.6744 38.2931 38.2916 37.6758 38.2916 36.9145V26.1606V25.7069H37.838H26.1596Z" fill="white" stroke="black" stroke-width="0.907287"/>
+  <path id="a" d="M0.934296 50.9286H0.476069V51.3868V62.1314C0.476069 62.9004 1.09953 63.5239 1.8686 63.5239H11.6788C12.4479 63.5239 13.0714 62.9004 13.0714 62.1314V51.3868V50.9286H12.6131H0.934296Z" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="b" x="0.476069" y="38.3155" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="c" x="0.476069" y="25.7024" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="d" x="0.476069" y="13.0893" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
+  <path id="e" d="M13.0714 0.934265V0.476039H12.6131H1.8686C1.09953 0.476039 0.476069 1.0995 0.476069 1.86857V12.6131V13.0713H0.934296H12.6131H13.0714V12.6131V0.934265Z" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="f" x="13.0892" y="0.476039" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
+  <path id="g" d="M26.1606 0.476039H25.7024V0.934265V12.6131V13.0713H26.1606H37.8394H38.2976V12.6131V1.86857C38.2976 1.0995 37.6742 0.476039 36.9051 0.476039H26.1606Z" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="h" x="25.7024" y="13.0893" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
+  <path id="i" d="M26.1606 25.7024H25.7024V26.1606V37.8394V38.2976H26.1606H36.9051C37.6742 38.2976 38.2976 37.6742 38.2976 36.9051V26.1606V25.7024H37.8394H26.1606Z" fill="white" stroke="black" stroke-width="0.916453" />
+  <rect id="j" x="13.0892" y="25.7024" width="12.5953" height="12.5953" fill="white" stroke="black" stroke-width="0.916453" />
 </svg>
