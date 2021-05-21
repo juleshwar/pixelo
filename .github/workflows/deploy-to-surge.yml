@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy website v2
+name: Deploy to surge
 
 # Controls when the action will run. 
 on:
@@ -23,6 +23,9 @@ jobs:
 
       - name: Build 
         run: yarn && REACT_APP_AIRTABLE_API_SECRET=${{ secrets.REACT_APP_AIRTABLE_API_SECRET }} yarn build
+
+      - name: Make 200.html file for surge
+        run: cp build/index.html build/200.html
         
       - name: Install *surge*
         run: npm i -g surge
