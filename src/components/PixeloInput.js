@@ -15,6 +15,7 @@ export class PixeloInput extends Component {
     value: PropTypes.string,
     className: PropTypes.string,
     errorMessage: PropTypes.string,
+    inputAttributes: PropTypes.object,
     onChangeHandler: PropTypes.func.isRequired,
   };
 
@@ -32,26 +33,32 @@ export class PixeloInput extends Component {
   }
 
   render() {
-    const { label, value, className, errorMessage, ...otherProps } = this.props;
+    const {
+      label,
+      value,
+      className,
+      errorMessage,
+      inputAttributes,
+    } = this.props;
     return (
-      <div className={`grid gap-1 justify-start ${this.props.className}`}>
-        <label className="text-xs text-gray-600">{this.props.label}</label>
+      <div className={`grid gap-1 justify-start ${className}`}>
+        <label className="text-xs text-gray-600">{label}</label>
         <input
           type="text"
-          value={this.props.value}
+          value={value}
           onChange={this.onChangeTextValue}
           className={
             "rounded outline-none border border-gray-400 w-72 h-10 p-3 text-gray-800 " +
             (this.state.showError ? "border-red-400" : "")
           }
-          {...otherProps}
+          {...inputAttributes}
         ></input>
         <label
           className={
             "text-xs text-red-600 " + (this.state.showError ? "" : "hidden")
           }
         >
-          {this.props.errorMessage}
+          {errorMessage}
         </label>
       </div>
     );

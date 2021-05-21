@@ -81,11 +81,13 @@ export class DesignDrawing extends Component {
         <form className="grid gap-6 justify-start">
           <PixeloInput
             label={"Drawing Name"}
-            required={true}
-            placeholder={"a nice name pls"}
             value={this.state.drawingName}
             errorMessage={"Name give pls. Good name give okay?"}
             onChangeHandler={this.onChangeDrawingName}
+            inputAttributes={{
+              required: true,
+              placeholder: "a nice name pls",
+            }}
           />
           <button
             className="px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white"
