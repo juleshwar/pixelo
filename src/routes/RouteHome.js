@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import PageLoading from "./PageLoading";
+import PageDesignDrawing from "./PageDesignDrawing";
 
 // Routes
 import RouteLanding from "./RouteLanding";
@@ -30,6 +31,9 @@ export class RouteHome extends Component {
           </Route>
           <Route path="/play">
             {this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />}
+          </Route>
+          <Route path="/design">
+            <PageDesignDrawing />
           </Route>
         </Switch>
       </BrowserRouter>
