@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { COLOR_PALETTE } from "../constants/components/PaletteBarConstants";
+import PixeloStateHandler from "../services/PixeloStateHandler";
 import * as UtilMethods from "../services/UtilFunctions";
 import { ReactComponent as TransparentPixeloLogo } from "../assets/svgs/transparent-pixelo-logo.svg";
 
@@ -20,6 +20,8 @@ export class LandingPage extends Component {
 
   addCursorColorAnimation() {
     /* Setting an animation which changes the cursor color every second :) */
+
+    const COLOR_PALETTE = PixeloStateHandler.COLOR_PALETTE;
 
     /* Step 1: Initial color change */
     UtilMethods.modifyCursorOnColorSelect(COLOR_PALETTE[this.state.colorIndex]);
@@ -49,7 +51,7 @@ export class LandingPage extends Component {
       <div className="w-full h-screen flex flex-col items-center justify-center">
         <TransparentPixeloLogo
           className="h-auto w-64 transition ease-in duration-500 sm:w-1/2 lg:w-5/12 xl:w-120"
-          fill={COLOR_PALETTE[this.state.colorIndex]}
+          fill={PixeloStateHandler.COLOR_PALETTE[this.state.colorIndex]}
         />
         <Link to="/play" className="mt-10 text-blue-500">
           click here to play
