@@ -4,6 +4,7 @@ import PageGameView from "./PageGameView";
 import LandingPage from "../components/LandingPage";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import PageLoading from "./PageLoading";
+import PageDesignDrawing from "./PageDesignDrawing";
 
 export class PageHome extends Component {
   constructor(props) {
@@ -24,10 +25,13 @@ export class PageHome extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            {this.state.hasDataLoaded ? <LandingPage /> : <PageLoading />}
+            <LandingPage />
           </Route>
           <Route path="/play">
             {this.state.hasDataLoaded ? <PageGameView /> : <PageLoading />}
+          </Route>
+          <Route path="/design">
+            <PageDesignDrawing />
           </Route>
         </Switch>
       </BrowserRouter>

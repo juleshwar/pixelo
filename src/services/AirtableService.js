@@ -23,4 +23,17 @@ async function fetchData(baseName) {
   });
 }
 
-export { fetchData };
+async function postData(baseName, data) {
+  return new Promise((res, rej) => {
+    base(baseName).create(data, function (err, records) {
+      if (err) {
+        console.error(err);
+        rej(err);
+        return;
+      }
+      res(records);
+    });
+  });
+}
+
+export { fetchData, postData };
