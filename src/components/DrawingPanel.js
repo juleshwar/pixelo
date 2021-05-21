@@ -43,51 +43,33 @@ export class DrawingPanel extends Component {
   }
 
   render() {
-    const gridSize = 10;
-    let renderedDrawing = [];
-    for (let colIndex = 0; colIndex < gridSize; colIndex++) {
-      let rowCells = [];
-      for (let rowIndex = 0; rowIndex < gridSize; rowIndex++) {
-        const cellIndex = colIndex * gridSize + rowIndex;
-        const cellColor = this.props.drawingMeta[cellIndex];
-        rowCells.push(
-          <td
-            key={cellColor + cellIndex}
-            className="p-0 border border-gray-200"
-            onMouseMove={
-              this.props.isReadOnly
-                ? null
-                : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
-            }
-            onMouseDown={
-              this.props.isReadOnly
-                ? null
-                : this.handleMouseDownOnColorCell.bind(this, cellIndex)
-            }
-          >
-            <ColorCell
-              index={cellIndex}
-              color={cellColor}
-              className="h-7 w-7 md:w-16 md:h-16"
-            />
-          </td>
-        );
-      }
-      renderedDrawing.push(
-        <tr className="table-row" key={colIndex}>
-          {rowCells}
-        </tr>
-      );
-    }
     return (
-      <table
-        className={
-          "table-auto border-collapse border border-gray-200 " +
-          this.props.className
-        }
-      >
-        <tbody>{renderedDrawing}</tbody>
-      </table>
+      <div className="grid grid-cols-10 grid-rows-10 gap-0.75">
+        {this.props.drawingMeta.map((cellColor, cellIndex) => {
+          return (
+            <div
+              key={cellColor + cellIndex}
+              className=""
+              onMouseMove={
+                this.props.isReadOnly
+                  ? null
+                  : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
+              }
+              onMouseDown={
+                this.props.isReadOnly
+                  ? null
+                  : this.handleMouseDownOnColorCell.bind(this, cellIndex)
+              }
+            >
+              <ColorCell
+                index={cellIndex}
+                color={cellColor}
+                className="shadow-color-cell h-7 w-7"
+              />
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }

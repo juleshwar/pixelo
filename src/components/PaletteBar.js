@@ -15,20 +15,21 @@ export class PaletteBar extends Component {
   };
 
   render() {
-    const paletteList = this.props.colors.map((color) => {
+    const propColors = this.props.colors;
+    const paletteList = propColors.map((color) => {
       return (
         <SelectableColorCell
           key={color}
           isSelected={this.props.selectedColor === color}
-          className="h-6 w-6 md:h-12 md:w-12"
           color={color}
           onClick={this.props.doUpdateSelectedColor.bind(this, color)}
+          className="h-8 w-8"
         />
       );
     });
     return (
       <nav
-        className={"flex border border-black w-auto " + this.props.className}
+        className={`${this.props.className} grid grid-cols-${propColors.length} gap-x-2`}
       >
         {paletteList}
       </nav>

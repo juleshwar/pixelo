@@ -15,23 +15,16 @@ export class SelectableColorCell extends Component {
   };
 
   render() {
-    let modifiedProps = JSON.parse(JSON.stringify(this.props));
-    delete modifiedProps.isSelected;
-
-    let innerContent;
-    if (this.props.isSelected) {
-      innerContent = <span>✅</span>;
-    }
-
-    const classes = this.props.className + " flex items-center justify-center";
+    let { isSelected, className, ...modifiedProps } = this.props;
 
     return (
       <ColorCell
         {...modifiedProps}
-        className={classes}
+        className={`${className} flex items-center justify-center`}
         onClick={this.props.onClick}
-        content={innerContent}
-      ></ColorCell>
+      >
+        {this.props.isSelected && <span className="text-s">✅</span>}
+      </ColorCell>
     );
   }
 }

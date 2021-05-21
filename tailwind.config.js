@@ -4,7 +4,15 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
+        0.75: "0.187rem",
+        3.75: "0.937rem",
         120: "40rem",
+      },
+      screens: {
+        landscape: { raw: "(orientation: landscape)" },
+      },
+      boxShadow: {
+        "color-cell": "0px 0px 8px 0px rgba(56, 56, 56, 0.1)",
       },
     },
   },
