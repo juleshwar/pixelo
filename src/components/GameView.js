@@ -225,7 +225,7 @@ export class GameView extends Component {
         </section>
         <footer className="flex py-4 justify-center justify-self-end">
           <PaletteBar
-            colors={COLOR_PALETTE}
+            colors={PixeloStateHandler.COLOR_PALETTE}
             selectedColor={this.state.currentColor}
             doUpdateSelectedColor={this.doUpdateCurrentColor}
             className="grid landscape:hidden"

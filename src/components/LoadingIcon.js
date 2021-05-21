@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo_icon_64.svg";
+import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.svg";
 
 export class LoadingIcon extends Component {
   constructor(props) {
