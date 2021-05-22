@@ -46,7 +46,7 @@ export class DrawingPanel extends Component {
   render() {
     return (
       <div
-        className={`grid grid-cols-10 grid-rows-10 gap-0.75 ${this.props.className}`}
+        className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${this.props.className}`}
       >
         {this.props.drawingMeta.map((cellColor, cellIndex) => {
           return (

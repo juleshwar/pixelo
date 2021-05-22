@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import SelectableColorCell from "./SelectableColorCell";
+import AspectRatioWrapper from "./utils/AspectRatioWrapper";
 
 export class PaletteBar extends Component {
   static propTypes = {
@@ -8,28 +9,43 @@ export class PaletteBar extends Component {
     selectedColor: PropTypes.string,
     doUpdateSelectedColor: PropTypes.func,
     className: PropTypes.string,
+    layoutFormat: PropTypes.string,
   };
 
   static defaultProps = {
     className: "",
+    layoutFormat: "row",
   };
 
   render() {
-    const propColors = this.props.colors;
+    const {
+      layoutFormat,
+      colors,
+      selectedColor,
+      doUpdateSelectedColor,
+      className,
+    } = this.props;
+    const propColors = colors;
     const paletteList = propColors.map((color) => {
       return (
-        <SelectableColorCell
-          key={color}
-          isSelected={this.props.selectedColor === color}
-          color={color}
-          onClick={this.props.doUpdateSelectedColor.bind(this, color)}
-          className="h-8 w-8"
-        />
+        <AspectRatioWrapper aspectRatioInpPercentage="100%" key={color}>
+          <SelectableColorCell
+            isSelected={selectedColor === color}
+            color={color}
+            onClick={doUpdateSelectedColor.bind(this, color)}
+            className="h-full w-full"
+          />
+        </AspectRatioWrapper>
       );
     });
     return (
       <nav
-        className={`${this.props.className} grid grid-cols-${propColors.length} gap-x-2`}
+        className={
+          `${className} grid ` +
+          (layoutFormat === "row"
+            ? `grid-rows-1 grid-cols-${propColors.length} gap-x-2`
+            : `grid-cols-1 grid-rows-${propColors.length} gap-y-1`)
+        }
       >
         {paletteList}
       </nav>
