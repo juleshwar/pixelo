@@ -32,4 +32,13 @@ async function modifyCursorOnColorSelect(color) {
   });
 }
 
-export { compareDrawingMeta, getRandomTemplate, modifyCursorOnColorSelect };
+function getRandomNumberInclusiveWithinRange(a, b) {
+  return Math.min(a, b) + Math.floor(Math.random() * (Math.abs(b - a) + 1));
+}
+
+export {
+  compareDrawingMeta,
+  getRandomTemplate,
+  modifyCursorOnColorSelect,
+  getRandomNumberInclusiveWithinRange,
+};
