@@ -45,12 +45,13 @@ export class DrawingPanel extends Component {
 
   render() {
     return (
-      <div className="grid grid-cols-10 grid-rows-10 gap-0.75">
+      <div
+        className={`grid grid-cols-10 grid-rows-10 gap-0.75 ${this.props.className}`}
+      >
         {this.props.drawingMeta.map((cellColor, cellIndex) => {
           return (
             <div
               key={cellColor + cellIndex}
-              className=""
               onMouseMove={
                 this.props.isReadOnly
                   ? null
@@ -66,11 +67,11 @@ export class DrawingPanel extends Component {
                 aspectRatioInPercentage="100%"
                 className="rounded shadow-color-cell"
               >
-              <ColorCell
-                index={cellIndex}
-                color={cellColor}
+                <ColorCell
+                  index={cellIndex}
+                  color={cellColor}
                   className="h-full w-full"
-              />
+                />
               </AspectRatioWrapper>
             </div>
           );
