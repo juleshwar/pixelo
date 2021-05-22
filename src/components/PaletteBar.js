@@ -44,7 +44,11 @@ export class PaletteBar extends Component {
     const emoji = PALETTE_BAR_EMOJIS[this.state.emojiIndex];
     const paletteList = propColors.map((color) => {
       return (
-        <AspectRatioWrapper aspectRatioInpPercentage="100%" key={color}>
+        <AspectRatioWrapper
+          aspectRatioInPercentage="100%"
+          key={color}
+          className="rounded-md border border-gray-400"
+        >
           <SelectableColorCell
             isSelected={selectedColor === color}
             color={color}
