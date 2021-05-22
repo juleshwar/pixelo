@@ -170,7 +170,7 @@ export class GameView extends Component {
     /* TODO: Handle layout when user wins */
 
     return (
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full overflow-y-auto">
         <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14">
           <Link to="/">
             <PixeloIcon64 className="w-4" />
