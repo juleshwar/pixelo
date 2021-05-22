@@ -181,7 +181,7 @@ export class GameView extends Component {
             doUpdateSelectedColor={this.doUpdateCurrentColor}
             className="hidden landscape:grid"
           />
-          <div className="flex justify-between w-7/12 landscape:w-1/4">
+          <div className="flex justify-between w-8/12 landscape:w-1/4">
             <PixeloButton
               title="Start a new game"
               onClick={this.setupNewGame}
@@ -210,20 +210,20 @@ export class GameView extends Component {
             </PixeloButton>
           </div>
         </header>
-        <section className="grid grid-rows-2 flex-1 gap-7 justify-items-center py-7 px-4 tablet:justify-around tablet:flex-row landscape:grid-cols-2 landscape:grid-rows-none landscape:py-3.5">
+        <section className="grid grid-rows-2 flex-1 gap-7 justify-items-center py-7 px-11 tablet:justify-around tablet:flex-row landscape:grid-cols-2 landscape:grid-rows-none landscape:py-3.5">
           <DrawingPanel
-            className="w-80"
+            className="w-full"
             drawingMeta={this.state.templateMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
           />
           <DrawingPanel
-            className="w-80 mt-4 tablet:mt-0"
+            className="w-full tablet:mt-0"
             drawingMeta={this.state.currentMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
             isReadOnly={isSonWinning}
           />
         </section>
-        <footer className="flex py-4 justify-center justify-self-end">
+        <footer className="flex pb-4 justify-center justify-self-end">
           <PaletteBar
             colors={PixeloStateHandler.COLOR_PALETTE}
             selectedColor={this.state.currentColor}
