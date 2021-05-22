@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      height: {
+        inherit: "inherit",
+      },
       spacing: {
         0.75: "0.187rem",
         3.75: "0.937rem",

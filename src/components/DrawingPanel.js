@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
 import PixeloStateHandler from "../services/PixeloStateHandler";
+import AspectRatioWrapper from "./utils/AspectRatioWrapper";
 
 export class DrawingPanel extends Component {
   constructor(props) {
@@ -61,11 +62,16 @@ export class DrawingPanel extends Component {
                   : this.handleMouseDownOnColorCell.bind(this, cellIndex)
               }
             >
+              <AspectRatioWrapper
+                aspectRatioInPercentage="100%"
+                className="rounded shadow-color-cell"
+              >
               <ColorCell
                 index={cellIndex}
                 color={cellColor}
-                className="shadow-color-cell h-7 w-7"
+                  className="h-full w-full"
               />
+              </AspectRatioWrapper>
             </div>
           );
         })}
