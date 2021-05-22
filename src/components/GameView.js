@@ -173,7 +173,7 @@ export class GameView extends Component {
       <div className="flex flex-col h-full overflow-y-auto">
         <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14">
           <Link to="/">
-            <PixeloIcon64 className="w-4" />
+            <PixeloIcon64 className="w-4 h-auto" />
           </Link>
           <PaletteBar
             colors={PixeloStateHandler.COLOR_PALETTE}
@@ -197,7 +197,7 @@ export class GameView extends Component {
               disabled={!ActionStack.isUndoPossible}
               onClick={this.onUndo}
             >
-              <SvgUndoArrow className="w-3" />
+              <SvgUndoArrow className="w-3 h-auto" />
             </PixeloButton>
             <PixeloButton
               title="Redo"
@@ -206,7 +206,7 @@ export class GameView extends Component {
               disabled={!ActionStack.isRedoPossible}
               onClick={this.onRedo}
             >
-              <SvgUndoArrow className="w-3" />
+              <SvgUndoArrow className="w-3 h-auto" />
             </PixeloButton>
           </div>
         </header>
