@@ -210,14 +210,14 @@ export class GameView extends Component {
             </PixeloButton>
           </div>
         </header>
-        <section className="grid grid-rows-2 flex-1 gap-7 justify-items-center py-7 px-4 md:justify-around md:flex-row landscape:grid-cols-2 landscape:grid-rows-none landscape:py-3.5">
+        <section className="grid grid-rows-2 flex-1 gap-7 justify-items-center py-7 px-4 tablet:justify-around tablet:flex-row landscape:grid-cols-2 landscape:grid-rows-none landscape:py-3.5">
           <DrawingPanel
             className="w-80"
             drawingMeta={this.state.templateMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
           />
           <DrawingPanel
-            className="w-80 mt-4 md:mt-0"
+            className="w-80 mt-4 tablet:mt-0"
             drawingMeta={this.state.currentMeta}
             doUpdateCellColor={this.doUpdateDrawingMeta}
             isReadOnly={isSonWinning}

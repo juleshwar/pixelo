@@ -12,6 +12,11 @@ module.exports = {
         120: "40rem",
       },
       screens: {
+        phone: "640px",
+        tablet: "768px",
+        laptop: "1024px",
+        desktop: "1280px",
+        "desktop-xl": "1536px" /* External Displays */,
         landscape: { raw: "(orientation: landscape)" },
       },
       boxShadow: {

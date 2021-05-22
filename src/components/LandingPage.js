@@ -50,7 +50,7 @@ export class LandingPage extends Component {
     return (
       <div className="w-full h-screen flex flex-col items-center justify-center">
         <TransparentPixeloLogo
-          className="h-auto w-64 transition ease-in duration-500 sm:w-1/2 lg:w-5/12 xl:w-120"
+          className="h-auto w-64 transition ease-in duration-500 phone:w-1/2 laptop:w-5/12 desktop:w-120"
           fill={PixeloStateHandler.COLOR_PALETTE[this.state.colorIndex]}
         />
         <Link to="/play" className="mt-10 text-blue-500">
