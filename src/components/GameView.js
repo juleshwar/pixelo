@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
@@ -9,6 +9,7 @@ import { ReactComponent as SvgUndoArrow } from "../assets/svgs/undo-arrow.svg";
 import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.svg";
 import { Link } from "react-router-dom";
 import PixeloButton from "./PixeloButton";
+import FireworkService from "../services/FireworkService";
 
 export class GameView extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ export class GameView extends Component {
     this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
+
+    this.fireworksCanvas = createRef();
   }
 
   componentDidMount() {
@@ -167,80 +170,97 @@ export class GameView extends Component {
   render() {
     let isSonWinning = this.areYouWinningSon();
 
+    if (isSonWinning && this.fireworksCanvas.current) {
+      const fS = new FireworkService(this.fireworksCanvas.current, true);
+      fS.fireworkAnimationLoop();
+    }
+
     /* TODO: Handle layout when user wins */
     /* TODO: Handle layout for extremely small screens */
 
     return (
-      <div className="flex flex-col h-full overflow-y-auto">
-        <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
-          <Link to="/">
-            <PixeloIcon64 className="w-4 h-auto tablet:w-6 laptop:w-8" />
-          </Link>
-          <PaletteBar
-            colors={PixeloStateHandler.COLOR_PALETTE}
-            selectedColor={this.state.currentColor}
-            doUpdateSelectedColor={this.doUpdateCurrentColor}
-            className="hidden w-80 tablet:grid tablet:w-106 laptop:w-134"
-          />
-          <div className="flex justify-between w-8/12 phone:w-1/3 landscape:w-2/6 tablet:w-56 tablet:h-10 laptop:w-72 laptop:h-13">
-            <PixeloButton
-              title="Start a new game"
-              onClick={this.setupNewGame}
-              className="px-4 laptop:px-6"
-            >
-              <span className="whitespace-nowrap">
-                {isSonWinning ? "Restart" : "New Game"}
-              </span>
-            </PixeloButton>
-            <PixeloButton
-              title="Undo"
-              className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
-              disabled={!ActionStack.isUndoPossible}
-              onClick={this.onUndo}
-            >
-              <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
-            </PixeloButton>
-            <PixeloButton
-              title="Redo"
-              className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
-              style={{ transform: "scale(-1, 1)" }}
-              disabled={!ActionStack.isRedoPossible}
-              onClick={this.onRedo}
-            >
-              <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
-            </PixeloButton>
+      <div className="relative flex flex-col h-full overflow-y-auto">
+        <canvas
+          ref={this.fireworksCanvas}
+          className={`z-1 transition-all duration-300 absolute h-full w-full bg-black bg-opacity-70 ${
+            isSonWinning ? "opacity-100" : "invisible opacity-0"
+          }`}
+        ></canvas>
+        <div
+          className={`transition-all duration-300 ${
+            isSonWinning ? "opacity-60" : ""
+          }`}
+        >
+          <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
+            <Link to="/">
+              <PixeloIcon64 className="w-4 h-auto tablet:w-6 laptop:w-8" />
+            </Link>
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              className="hidden w-80 tablet:grid tablet:w-106 laptop:w-134"
+            />
+            <div className="flex justify-between w-8/12 phone:w-1/3 landscape:w-2/6 tablet:w-56 tablet:h-10 laptop:w-72 laptop:h-13">
+              <PixeloButton
+                title="Start a new game"
+                onClick={this.setupNewGame}
+                className="px-4 laptop:px-6"
+              >
+                <span className="whitespace-nowrap">
+                  {isSonWinning ? "Restart" : "New Game"}
+                </span>
+              </PixeloButton>
+              <PixeloButton
+                title="Undo"
+                className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
+                disabled={!ActionStack.isUndoPossible}
+                onClick={this.onUndo}
+              >
+                <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
+              </PixeloButton>
+              <PixeloButton
+                title="Redo"
+                className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
+                style={{ transform: "scale(-1, 1)" }}
+                disabled={!ActionStack.isRedoPossible}
+                onClick={this.onRedo}
+              >
+                <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
+              </PixeloButton>
+            </div>
+          </header>
+          <div className="flex items-center justify-center py-7 px-11 landscape:py-3.5 landscape:px-9 tablet:px-16 tablet:py-10 laptop:py-14 laptop:px-40">
+            <section className="grid grid-rows-2 flex-1 gap-7 landscape:grid-cols-2 landscape:grid-rows-1 tablet:gap-14 laptop:gap-28">
+              <DrawingPanel
+                className="w-full"
+                drawingMeta={this.state.templateMeta}
+                doUpdateCellColor={this.doUpdateDrawingMeta}
+              />
+              <DrawingPanel
+                className="w-full"
+                drawingMeta={this.state.currentMeta}
+                doUpdateCellColor={this.doUpdateDrawingMeta}
+                isReadOnly={isSonWinning}
+              />
+            </section>
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              layoutFormat="col"
+              className="hidden w-7 ml-7 landscape:grid tablet:hidden"
+            />
           </div>
-        </header>
-        <div className="flex items-center justify-center py-7 px-11 landscape:py-3.5 landscape:px-9 tablet:px-16 tablet:py-10 laptop:py-14 laptop:px-40">
-          <section className="grid grid-rows-2 flex-1 gap-7 landscape:grid-cols-2 landscape:grid-rows-1 tablet:gap-14 laptop:gap-28">
-            <DrawingPanel
-              className="w-full"
-              drawingMeta={this.state.templateMeta}
-              doUpdateCellColor={this.doUpdateDrawingMeta}
+          <footer className="flex pb-4 px-11 justify-center justify-self-end landscape:hidden tablet:hidden">
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              className="grid w-full"
             />
-            <DrawingPanel
-              className="w-full"
-              drawingMeta={this.state.currentMeta}
-              doUpdateCellColor={this.doUpdateDrawingMeta}
-              isReadOnly={isSonWinning}
-            />
-          </section>
-          <PaletteBar
-            colors={PixeloStateHandler.COLOR_PALETTE}
-            selectedColor={this.state.currentColor}
-            doUpdateSelectedColor={this.doUpdateCurrentColor}
-            layoutFormat="col"
-            className="hidden w-7 ml-7 landscape:grid tablet:hidden"
-          />
+          </footer>
         </div>
-        <footer className="flex pb-4 px-11 justify-center justify-self-end landscape:hidden tablet:hidden">
-          <PaletteBar
-            colors={PixeloStateHandler.COLOR_PALETTE}
-            selectedColor={this.state.currentColor}
-            doUpdateSelectedColor={this.doUpdateCurrentColor}
-            className="grid w-full"
-          />
-        </footer>
       </div>
     );
   }
