@@ -51,7 +51,7 @@ const PARTICLE_TRAIL_LENGTH = 10;
 
 // Alpha level that canvas cleanup iteration removes existing trails.
 // Lower value increases trail duration.
-const CANVAS_CLEANUP_ALPHA = 0.15;
+const CANVAS_CLEANUP_ALPHA = 0.3;
 // Hue change per loop, used to rotate through different firework colors.
 const HUE_STEP_INCREASE = 0.5;
 
@@ -65,7 +65,11 @@ const TICKS_PER_FIREWORK_AUTOMATED_MAX = 100;
 
 class FireworkService {
   constructor(canvasElement, fireworkOnMouseClick) {
-    if (!canvasElement) {
+    if (
+      !canvasElement ||
+      !canvasElement.nodeName ||
+      canvasElement.nodeName !== "CANVAS"
+    ) {
       return;
     }
 
