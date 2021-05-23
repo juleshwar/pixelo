@@ -1,4 +1,4 @@
-const PRESET_DRAWINGS_BASE_NAME = "Preset Drawings - Development";
+const PRESET_DRAWINGS_BASE_NAME = "Preset Drawings";
 const COLOR_PALETTE_MAP = {
   WHITE: "#FFFFFF",
   BLACK: "#1F2937",
