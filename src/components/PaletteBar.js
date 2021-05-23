@@ -30,10 +30,13 @@ export class PaletteBar extends Component {
     if (this.props.selectedColor === color) {
       return;
     }
-    const newEmojiIndex = UtilFunctions.getRandomNumberInclusiveWithinRange(
-      0,
-      PALETTE_BAR_EMOJIS.length - 1
-    );
+    let newEmojiIndex = this.state.emojiIndex;
+    while (newEmojiIndex === this.state.emojiIndex) {
+      newEmojiIndex = UtilFunctions.getRandomNumberInclusiveWithinRange(
+        0,
+        PALETTE_BAR_EMOJIS.length - 1
+      );
+    }
     this.setState({ emojiIndex: newEmojiIndex });
     this.props.doUpdateSelectedColor(color);
   }
