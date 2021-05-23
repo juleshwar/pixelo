@@ -5,7 +5,10 @@ import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import PixeloInput from "./PixeloInput";
 import * as AirtableService from "../services/AirtableService";
-import { PRESET_DRAWINGS_BASE_NAME } from "../constants/PixeloConstants";
+import {
+  REVERSE_COLOR_PALETTE_MAP,
+  PRESET_DRAWINGS_BASE_NAME,
+} from "../constants/PixeloConstants";
 
 export class DesignDrawing extends Component {
   constructor(props) {
@@ -42,9 +45,12 @@ export class DesignDrawing extends Component {
 
   async onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
+    const colorMappedMeta = this.state.currentMeta.map(
+      (hex) => REVERSE_COLOR_PALETTE_MAP[hex]
+    );
     const payload = {
-      name: this.state.drawingName.toUpperCase().replace(" ", "_"),
-      template: JSON.stringify(this.state.currentMeta),
+      name: this.state.drawingName.toUpperCase().replaceAll(" ", "_"),
+      template: JSON.stringify(colorMappedMeta),
     };
     await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
     this.resetDrawing();
@@ -52,7 +58,7 @@ export class DesignDrawing extends Component {
 
   resetDrawing() {
     this.setState({
-      drawingMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+      currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
     });
     this.setState({ drawingName: "" });
   }

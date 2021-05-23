@@ -1,4 +1,4 @@
-const PRESET_DRAWINGS_BASE_NAME = "Preset Drawings";
+const PRESET_DRAWINGS_BASE_NAME = "Preset Drawings - Development";
 const COLOR_PALETTE_MAP = {
   WHITE: "#FFFFFF",
   BLACK: "#1F2937",
@@ -10,5 +10,20 @@ const COLOR_PALETTE_MAP = {
   ORANGE: "#F59E0B",
   PURPLE: "#8B5CF6",
 };
+const REVERSE_COLOR_PALETTE_MAP = {
+  "#FFFFFF": "WHITE",
+  "#1F2937": "BLACK",
+  "#9CA3AF": "GREY",
+  "#10B981": "GREEN",
+  "#60A5FA": "BLUE",
+  "#BE185D": "RED",
+  "#F87171": "PINK",
+  "#F59E0B": "ORANGE",
+  "#8B5CF6": "PURPLE",
+};
 
-export { PRESET_DRAWINGS_BASE_NAME, COLOR_PALETTE_MAP };
+export {
+  PRESET_DRAWINGS_BASE_NAME,
+  COLOR_PALETTE_MAP,
+  REVERSE_COLOR_PALETTE_MAP,
+};
