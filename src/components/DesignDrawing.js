@@ -17,6 +17,7 @@ export class DesignDrawing extends Component {
       drawingName: "",
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+      isSubmittingDesign: false,
     };
     this.onChangeDrawingName = this.onChangeDrawingName.bind(this);
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
@@ -45,6 +46,7 @@ export class DesignDrawing extends Component {
 
   async onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
+    this.setState({ isSubmittingDesign: true });
     const colorMappedMeta = this.state.currentMeta.map(
       (hex) => REVERSE_COLOR_PALETTE_MAP[hex]
     );
@@ -53,6 +55,7 @@ export class DesignDrawing extends Component {
       template: JSON.stringify(colorMappedMeta),
     };
     await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
+    this.setState({ isSubmittingDesign: false });
     this.resetDrawing();
   }
 
@@ -94,10 +97,13 @@ export class DesignDrawing extends Component {
             onChangeHandler={this.onChangeDrawingName}
           />
           <button
-            className="px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white"
+            className={`px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white ${
+              this.state.isSubmittingDesign ? "animate-pulse" : ""
+            }`}
+            disabled={this.state.isSubmittingDesign}
             onClick={this.onSubmitDrawing}
           >
-            Submit Drawing
+            {this.state.isSubmittingDesign ? "Submitting..." : "Submit Drawing"}
           </button>
         </form>
       </div>
