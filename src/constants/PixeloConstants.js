@@ -13,7 +13,6 @@ const COLOR_PALETTE_MAP = {
 const PALETTE_BAR_EMOJIS = [
   "✅",
   "👻",
-  "🦞",
   "🦀",
   "🐛",
   "🐮",
@@ -26,11 +25,7 @@ const PALETTE_BAR_EMOJIS = [
   "🥳",
   "🐙",
   "🐢",
-  "🦕",
   "🐈",
-  "🐈‍⬛",
-  "🐿",
-  "🍀",
   "🍎",
   "🍓",
   "🍒",
@@ -45,7 +40,15 @@ const PALETTE_BAR_EMOJIS = [
   "💙",
   "💜",
   "💚",
-  "🖤",
+  "🤡",
+  "💄",
+  "🐞",
+  "⚡️",
+  "✨",
+  "🎊",
+  "🥳",
+  "🎉",
+  "🎁",
 ];
 
 export { PRESET_DRAWINGS_BASE_NAME, COLOR_PALETTE_MAP, PALETTE_BAR_EMOJIS };
