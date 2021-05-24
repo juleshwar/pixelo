@@ -150,10 +150,10 @@ export class GameView extends Component {
     return (
       <div className="relative flex flex-col h-full overflow-y-auto">
         <FireworksCanvas
-          className={`z-1 transition-all duration-300 absolute
-          bg-black bg-opacity-70 ${
-            isSonWinning ? "opacity-100" : "invisible opacity-0"
+          className={`z-1 transition-all duration-300 absolute bg-black bg-opacity-70 ${
+            isSonWinning ? "opacity-100" : "w-0 h-0 invisible opacity-0"
           }`}
+          startAnimationLoop={isSonWinning}
         />
         <div
           className={`transition-all duration-300 ${
