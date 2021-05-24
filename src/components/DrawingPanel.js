@@ -33,24 +33,34 @@ export class DrawingPanel extends Component {
     this.triggerUpdateCellColorLogic(cellIndex, e.buttons);
   }
 
+  handleDoubleClickOnColorCell(cellIndex, e) {
+    this.props.doUpdateCellColor(cellIndex, true);
+  }
+
   render() {
+    const { className, drawingMeta, isReadOnly } = this.props;
     return (
       <div
-        className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${this.props.className}`}
+        className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${className}`}
       >
-        {this.props.drawingMeta.map((cellColor, cellIndex) => {
+        {drawingMeta.map((cellColor, cellIndex) => {
           return (
             <div
               key={cellColor + cellIndex}
               onMouseMove={
-                this.props.isReadOnly
+                isReadOnly
                   ? null
                   : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
               }
               onMouseDown={
-                this.props.isReadOnly
+                isReadOnly
                   ? null
                   : this.handleMouseDownOnColorCell.bind(this, cellIndex)
+              }
+              onDoubleClick={
+                isReadOnly
+                  ? null
+                  : this.handleDoubleClickOnColorCell.bind(this, cellIndex)
               }
             >
               <AspectRatioWrapper
