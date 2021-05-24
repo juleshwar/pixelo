@@ -5,16 +5,6 @@ import PixeloStateHandler from "../services/PixeloStateHandler";
 import AspectRatioWrapper from "./utils/AspectRatioWrapper";
 
 export class DrawingPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.handleMouseMoveOnColorCell = this.handleMouseMoveOnColorCell.bind(
-      this
-    );
-    this.handleMouseDownOnColorCell = this.handleMouseDownOnColorCell.bind(
-      this
-    );
-  }
-
   static propTypes = {
     drawingMeta: PropTypes.arrayOf(PropTypes.string),
     isReadOnly: PropTypes.bool,

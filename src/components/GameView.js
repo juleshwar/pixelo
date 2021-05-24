@@ -66,7 +66,7 @@ export class GameView extends Component {
   }
 
   doUpdateDrawingMeta(colorIndex, eraseColor) {
-    const modifiedMeta = JSON.parse(JSON.stringify(this.state.currentMeta));
+    const modifiedMeta = this.state.currentMeta;
     let toColor;
     let fromColor = modifiedMeta[colorIndex];
     if (eraseColor) {
