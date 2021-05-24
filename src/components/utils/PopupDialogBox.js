@@ -9,29 +9,38 @@ export class PopupDialogBox extends Component {
     this.onClickSecondaryButton = this.onClickSecondaryButton.bind(this);
   }
 
-  static propTypes = {
+  static props = {
     className: PropTypes.string,
+    confirm: PropTypes.func,
+    deny: PropTypes.func,
   };
 
   static defaultProps = {
     className: "",
+    confirm: () => {},
+    deny: () => {},
   };
 
   onClickPrimaryButton() {
-    console.log("primary");
+    this.props.confirm();
   }
 
   onClickSecondaryButton() {
-    console.log("secondary");
+    this.props.deny();
   }
 
   render() {
-    const { content, primaryButtonText, secondaryButtonText } = this.props;
+    const {
+      children,
+      primaryButtonText,
+      secondaryButtonText,
+      className,
+    } = this.props;
     return (
       <div
-        className={`${this.props.className} flex flex-col w-106 h-106 px-8 py-4 bg-white rounded`}
+        className={`${className} flex flex-col w-106 h-106 px-8 py-4 bg-white rounded`}
       >
-        <div className="h-4/5">{content}</div>
+        <div className="h-4/5">{children}</div>
         <div className="flex-1 grid grid-cols-2 gap-8 py-2">
           <PixeloButton
             onClick={this.onClickSecondaryButton}
