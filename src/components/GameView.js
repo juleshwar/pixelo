@@ -1,4 +1,4 @@
-import React, { Component, createRef } from "react";
+import React, { Component } from "react";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
@@ -9,7 +9,7 @@ import { ReactComponent as SvgUndoArrow } from "../assets/svgs/undo-arrow.svg";
 import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.svg";
 import { Link } from "react-router-dom";
 import PixeloButton from "./PixeloButton";
-import FireworkService from "../services/FireworkService";
+import FireworksCanvas from "./utils/FireworksCanvas";
 
 export class GameView extends Component {
   constructor(props) {
@@ -28,8 +28,6 @@ export class GameView extends Component {
     this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
-
-    this.fireworksCanvas = createRef();
   }
 
   componentDidMount() {
@@ -146,22 +144,17 @@ export class GameView extends Component {
   render() {
     let isSonWinning = this.areYouWinningSon();
 
-    if (isSonWinning && this.fireworksCanvas.current) {
-      const fS = new FireworkService(this.fireworksCanvas.current, true);
-      fS.fireworkAnimationLoop();
-    }
-
     /* TODO: Handle layout when user wins */
     /* TODO: Handle layout for extremely small screens */
 
     return (
       <div className="relative flex flex-col h-full overflow-y-auto">
-        <canvas
-          ref={this.fireworksCanvas}
-          className={`z-1 transition-all duration-300 absolute h-full w-full bg-black bg-opacity-70 ${
+        <FireworksCanvas
+          className={`z-1 transition-all duration-300 absolute
+          bg-black bg-opacity-70 ${
             isSonWinning ? "opacity-100" : "invisible opacity-0"
           }`}
-        ></canvas>
+        />
         <div
           className={`transition-all duration-300 ${
             isSonWinning ? "opacity-60" : ""
