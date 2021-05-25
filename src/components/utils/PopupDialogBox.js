@@ -38,10 +38,10 @@ export class PopupDialogBox extends Component {
     } = this.props;
     return (
       <div
-        className={`${className} flex flex-col w-106 h-106 px-8 py-4 bg-white rounded`}
+        className={`${className} flex flex-col w-80 h-96 px-6 py-4 text-xl bg-white rounded landscape:h-64 landscape:w-64 tablet:w-106 tablet:h-106 tablet:px-8 tablet:text-2xl landscape:text-lg`}
       >
         <div className="h-4/5">{children}</div>
-        <div className="flex-1 grid grid-cols-2 gap-8 py-2">
+        <div className="flex-1 grid grid-cols-2 gap-8 py-2 text-lg landscape:text-base tablet:text-2xl">
           <PixeloButton
             onClick={this.onClickSecondaryButton}
             className={secondaryButtonText ? "" : "invisible"}
@@ -50,7 +50,7 @@ export class PopupDialogBox extends Component {
           </PixeloButton>
           <PixeloButton
             onClick={this.onClickPrimaryButton}
-            className="bg-green-400"
+            className="text-gray-700 bg-green-400 bg-gradient-to-r hover:from-green-400 hover:to-yellow-300"
           >
             {primaryButtonText}
           </PixeloButton>
