@@ -201,7 +201,7 @@ export class GameView extends Component {
             this.state.isWinnerScreenVisible ? "opacity-60" : ""
           }`}
         >
-          <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
+          <header className="flex bg-indigo-400 bg-opacity-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
             <Link to="/">
               <PixeloIcon64 className="w-4 h-auto tablet:w-6 laptop:w-8" />
             </Link>
