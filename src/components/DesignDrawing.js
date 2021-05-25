@@ -75,14 +75,17 @@ export class DesignDrawing extends Component {
   }
 
   render() {
+    /* TODO: Use GameView component with designMode prop and get rid of this component */
     return (
-      <div className="grid py-4 place-items-center gap-3 h-screen">
+      <div className="grid py-4 place-items-center gap-3 h-screen overflow-auto">
         <PaletteBar
+          className="w-80 laptop:w-106"
           colors={PixeloStateHandler.COLOR_PALETTE}
           selectedColor={this.state.currentColor}
           doUpdateSelectedColor={this.doUpdateCurrentColor}
         />
         <DrawingPanel
+          className="w-80 laptop:w-106"
           drawingMeta={this.state.currentMeta}
           doUpdateCellColor={this.doUpdateDrawingMeta}
           isReadOnly={false}
@@ -90,11 +93,13 @@ export class DesignDrawing extends Component {
         <form className="grid gap-6 justify-start">
           <PixeloInput
             label={"Drawing Name"}
-            required={true}
-            placeholder={"a nice name pls"}
             value={this.state.drawingName}
             errorMessage={"Name give pls. Good name give okay?"}
             onChangeHandler={this.onChangeDrawingName}
+            inputAttributes={{
+              required: true,
+              placeholder: "a nice name pls",
+            }}
           />
           <button
             className={`px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white ${

@@ -1,6 +1,6 @@
 {
   "name": "pixelo",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -42,7 +42,6 @@
   },
   "devDependencies": {
     "@craco/craco": "^6.1.1",
-    "@svgr/cli": "^5.5.0",
     "@tailwindcss/postcss7-compat": "^2.1.0",
     "autoprefixer": "^9",
     "postcss": "^7",

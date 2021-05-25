@@ -5,7 +5,6 @@ export class ColorCell extends Component {
   static propTypes = {
     color: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    content: PropTypes.element,
     className: PropTypes.string,
   };
 
@@ -14,14 +13,14 @@ export class ColorCell extends Component {
   };
 
   render() {
-    const classes = "relative " + this.props.className;
     return (
       <div
-        className={classes}
-        style={Object.assign({}, { background: this.props.color })}
+        className={`${this.props.className} relative rounded`}
+        style={{ background: this.props.color }}
         onClick={this.props.onClick}
+        draggable={false}
       >
-        {this.props.content}
+        {this.props.children}
       </div>
     );
   }

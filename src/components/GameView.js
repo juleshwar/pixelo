@@ -5,7 +5,12 @@ import PaletteBar from "./PaletteBar";
 import { ACTION_TYPE } from "../constants/services/ActionStackConstants";
 import * as UtilFunctions from "../services/UtilFunctions";
 import ActionStack from "../services/ActionStack";
-import SvgUndoArrow from "./svgs/UndoArrow";
+import { ReactComponent as SvgUndoArrow } from "../assets/svgs/undo-arrow.svg";
+import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.svg";
+import { Link } from "react-router-dom";
+import PixeloButton from "./PixeloButton";
+import FireworksCanvas from "./utils/FireworksCanvas";
+import FullPageDialog from "./utils/FullPageDialog";
 
 export class GameView extends Component {
   constructor(props) {
@@ -14,6 +19,7 @@ export class GameView extends Component {
       templateMeta: UtilFunctions.getRandomTemplate(),
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
+      isWinnerScreenVisible: false,
     };
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
@@ -21,6 +27,8 @@ export class GameView extends Component {
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
     this.onUndo = this.onUndo.bind(this);
     this.onRedo = this.onRedo.bind(this);
+    this.showWinnerScreen = this.showWinnerScreen.bind(this);
+    this.hideWinnerScreen = this.hideWinnerScreen.bind(this);
     this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
@@ -56,29 +64,6 @@ export class GameView extends Component {
         this.onUndo();
         break;
 
-      case e.code.startsWith("Digit") || e.code === "Minus":
-        const colorKeyMapping = {
-          1: 0,
-          2: 1,
-          3: 2,
-          4: 3,
-          5: 4,
-          6: 5,
-          7: 6,
-          8: 7,
-          9: 8,
-          0: 9,
-          Minus: 10,
-        };
-        const digitPressed = e.code.startsWith("Digit")
-          ? e.code.slice(5)
-          : e.code;
-        const colorKey = colorKeyMapping[digitPressed];
-        if (colorKey !== undefined) {
-          this.doUpdateCurrentColor(PixeloStateHandler.COLOR_PALETTE[colorKey]);
-        }
-        break;
-
       default:
         break;
     }
@@ -107,7 +92,13 @@ export class GameView extends Component {
     };
     ActionStack.pushToStack(actionItem);
     modifiedMeta[colorIndex] = toColor;
-    this.setState({ currentMeta: modifiedMeta });
+
+    // Check if the user has won after drawing meta has updated
+    this.setState({ currentMeta: modifiedMeta }, () => {
+      if (this.areYouWinningSon()) {
+        this.showWinnerScreen();
+      }
+    });
   }
 
   doUpdateCurrentColor(color) {
@@ -139,6 +130,14 @@ export class GameView extends Component {
     ActionStack.clearStack();
   }
 
+  showWinnerScreen() {
+    this.setState({ isWinnerScreenVisible: true });
+  }
+
+  hideWinnerScreen() {
+    this.setState({ isWinnerScreenVisible: false });
+  }
+
   //#region Actions
   onUndo() {
     if (!ActionStack.isUndoPossible || this.areYouWinningSon()) {
@@ -161,72 +160,117 @@ export class GameView extends Component {
   //#endregion Actions
 
   render() {
-    let isSonWinning = this.areYouWinningSon();
+    const isSonWinning = this.areYouWinningSon();
 
-    let parentClasses = "flex flex-col h-screen";
-    if (isSonWinning) {
-      parentClasses += " bg-green-700";
-    }
+    /* TODO: Handle layout for extremely small screens */
 
     return (
-      <div className={parentClasses}>
-        <header className="flex flex-col justify-center py-4 items-center md:flex-row md:w-7/12 md:justify-between md:self-center">
-          <PaletteBar
-            colors={PixeloStateHandler.COLOR_PALETTE}
-            selectedColor={this.state.currentColor}
-            doUpdateSelectedColor={this.doUpdateCurrentColor}
-          />
-          <div className="flex mt-3 justify-between w-1/2 md:w-3/12 md:mt-0 md:flex-1 md:ml-8">
-            <button
-              title="Undo"
-              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
-              disabled={!ActionStack.isUndoPossible}
-              onClick={this.onUndo}
-            >
-              <SvgUndoArrow className="w-6" />
-            </button>
-            <button
-              title="Redo"
-              style={{ transform: "scale(-1, 1)" }}
-              className="cursor-default px-3 py-1 border border-black 2xl:px-4 disabled:opacity-50 disabled:border-gray-500 disabled:bg-gray-300 disabled:cursor-not-allowed"
-              disabled={!ActionStack.isRedoPossible}
-              onClick={this.onRedo}
-            >
-              <SvgUndoArrow className="w-6" />
-            </button>
-            <button
-              title="Start a new game"
-              onClick={this.setupNewGame}
-              className="flex items-center px-4 justify-center cursor-default border border-purple-500 rounded-3xl bg-white md:px-8"
-            >
-              <span className="text-l md:text-4xl">🎲</span>
-              <span className="hidden text-xl text-m md:block md:ml-4">
-                {isSonWinning ? "Restart" : "New Game"}
-              </span>
-            </button>
-          </div>
-        </header>
-        <section className="flex flex-col items-center py-8 px-4 md:justify-around md:flex-row">
-          <DrawingPanel
-            className=""
-            drawingMeta={this.state.templateMeta}
-            doUpdateCellColor={this.doUpdateDrawingMeta}
-          />
-          <DrawingPanel
-            className="mt-4 md:mt-0"
-            drawingMeta={this.state.currentMeta}
-            doUpdateCellColor={this.doUpdateDrawingMeta}
-            isReadOnly={isSonWinning}
-          />
-        </section>
-        <footer
-          className={
-            "flex justify-center mt-auto py-6 " +
-            (isSonWinning ? "show" : "hidden")
-          }
+      <div
+        className={`relative flex flex-col h-full ${
+          this.state.isWinnerScreenVisible ? "" : "overflow-y-auto"
+        }`}
+      >
+        <FullPageDialog
+          showDialog={this.state.isWinnerScreenVisible}
+          dialogBoxConfig={{
+            primaryButtonText: "Play Again",
+            secondaryButtonText: "Cancel",
+            confirm: () => {
+              this.setupNewGame();
+              this.hideWinnerScreen();
+            },
+            deny: this.hideWinnerScreen,
+          }}
         >
-          <span className="text-5xl text-white">You won! 🥳</span>
-        </footer>
+          <div className="grid h-full place-items-center text-center py-4 tablet:py-6 landscape:py-4">
+            <span className="text-4xl tablet:text-5xl">🥳</span>
+            <span>Ayy! Nice job!</span>
+            <span>You completed the drawing</span>
+          </div>
+        </FullPageDialog>
+        <FireworksCanvas
+          className={`z-1 transition-opacity duration-300 absolute bg-black bg-opacity-70 w-full h-full ${
+            this.state.isWinnerScreenVisible
+              ? "opacity-100"
+              : "w-0 h-0 invisible opacity-0"
+          }`}
+          startAnimationLoop={this.state.isWinnerScreenVisible}
+        />
+        <div
+          className={`transition-all duration-300 ${
+            this.state.isWinnerScreenVisible ? "opacity-60" : ""
+          }`}
+        >
+          <header className="flex bg-indigo-400 bg-opacity-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
+            <Link to="/">
+              <PixeloIcon64 className="w-4 h-auto tablet:w-6 laptop:w-8" />
+            </Link>
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              className="hidden w-80 tablet:grid tablet:w-106 laptop:w-134"
+            />
+            <div className="flex justify-between w-8/12 phone:w-1/3 landscape:w-2/6 tablet:w-56 tablet:h-10 laptop:w-72 laptop:h-13">
+              <PixeloButton
+                title="Start a new game"
+                onClick={this.setupNewGame}
+                className="px-4 laptop:px-6"
+              >
+                <span className="whitespace-nowrap">
+                  {isSonWinning ? "Restart" : "New Game"}
+                </span>
+              </PixeloButton>
+              <PixeloButton
+                title="Undo"
+                className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
+                disabled={!ActionStack.isUndoPossible || isSonWinning}
+                onClick={this.onUndo}
+              >
+                <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
+              </PixeloButton>
+              <PixeloButton
+                title="Redo"
+                className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
+                style={{ transform: "scale(-1, 1)" }}
+                disabled={!ActionStack.isRedoPossible || isSonWinning}
+                onClick={this.onRedo}
+              >
+                <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
+              </PixeloButton>
+            </div>
+          </header>
+          <div className="flex items-center justify-center py-7 px-11 landscape:py-3.5 landscape:px-9 tablet:px-16 tablet:py-10 laptop:py-14 laptop:px-40">
+            <section className="grid grid-rows-2 flex-1 gap-7 landscape:grid-cols-2 landscape:grid-rows-1 tablet:gap-14 laptop:gap-28">
+              <DrawingPanel
+                className="w-full"
+                drawingMeta={this.state.templateMeta}
+                doUpdateCellColor={this.doUpdateDrawingMeta}
+              />
+              <DrawingPanel
+                className="w-full"
+                drawingMeta={this.state.currentMeta}
+                doUpdateCellColor={this.doUpdateDrawingMeta}
+                isReadOnly={isSonWinning}
+              />
+            </section>
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              layoutFormat="col"
+              className="hidden w-7 ml-7 landscape:grid tablet:hidden"
+            />
+          </div>
+          <footer className="flex pb-4 px-11 justify-center justify-self-end landscape:hidden tablet:hidden">
+            <PaletteBar
+              colors={PixeloStateHandler.COLOR_PALETTE}
+              selectedColor={this.state.currentColor}
+              doUpdateSelectedColor={this.doUpdateCurrentColor}
+              className="grid w-full"
+            />
+          </footer>
+        </div>
       </div>
     );
   }

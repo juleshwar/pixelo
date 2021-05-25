@@ -2,18 +2,9 @@ import React, { Component } from "react";
 import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
 import PixeloStateHandler from "../services/PixeloStateHandler";
+import AspectRatioWrapper from "./utils/AspectRatioWrapper";
 
 export class DrawingPanel extends Component {
-  constructor(props) {
-    super(props);
-    this.handleMouseMoveOnColorCell = this.handleMouseMoveOnColorCell.bind(
-      this
-    );
-    this.handleMouseDownOnColorCell = this.handleMouseDownOnColorCell.bind(
-      this
-    );
-  }
-
   static propTypes = {
     drawingMeta: PropTypes.arrayOf(PropTypes.string),
     isReadOnly: PropTypes.bool,
@@ -42,52 +33,50 @@ export class DrawingPanel extends Component {
     this.triggerUpdateCellColorLogic(cellIndex, e.buttons);
   }
 
+  handleDoubleClickOnColorCell(cellIndex, e) {
+    this.props.doUpdateCellColor(cellIndex, true);
+  }
+
   render() {
-    const gridSize = 10;
-    let renderedDrawing = [];
-    for (let colIndex = 0; colIndex < gridSize; colIndex++) {
-      let rowCells = [];
-      for (let rowIndex = 0; rowIndex < gridSize; rowIndex++) {
-        const cellIndex = colIndex * gridSize + rowIndex;
-        const cellColor = this.props.drawingMeta[cellIndex];
-        rowCells.push(
-          <td
-            key={cellColor + cellIndex}
-            className="p-0 border border-gray-200"
-            onMouseMove={
-              this.props.isReadOnly
-                ? null
-                : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
-            }
-            onMouseDown={
-              this.props.isReadOnly
-                ? null
-                : this.handleMouseDownOnColorCell.bind(this, cellIndex)
-            }
-          >
-            <ColorCell
-              index={cellIndex}
-              color={cellColor}
-              className="h-7 w-7 md:w-16 md:h-16"
-            />
-          </td>
-        );
-      }
-      renderedDrawing.push(
-        <tr className="table-row" key={colIndex}>
-          {rowCells}
-        </tr>
-      );
-    }
+    const { className, drawingMeta, isReadOnly } = this.props;
     return (
-      <table
-        className={
-          "table-auto border-collapse border border-gray-200 " +
-          this.props.className
-        }
+      <div
+        className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${className}`}
       >
-        <tbody>{renderedDrawing}</tbody>
-      </table>
+        {drawingMeta.map((cellColor, cellIndex) => {
+          return (
+            <div
+              key={cellColor + cellIndex}
+              onMouseMove={
+                isReadOnly
+                  ? null
+                  : this.handleMouseMoveOnColorCell.bind(this, cellIndex)
+              }
+              onMouseDown={
+                isReadOnly
+                  ? null
+                  : this.handleMouseDownOnColorCell.bind(this, cellIndex)
+              }
+              onDoubleClick={
+                isReadOnly
+                  ? null
+                  : this.handleDoubleClickOnColorCell.bind(this, cellIndex)
+              }
+            >
+              <AspectRatioWrapper
+                aspectRatioInPercentage="100%"
+                className="rounded shadow-color-cell"
+              >
+                <ColorCell
+                  index={cellIndex}
+                  color={cellColor}
+                  className="h-full w-full"
+                />
+              </AspectRatioWrapper>
+            </div>
+          );
+        })}
+      </div>
     );
   }
 }

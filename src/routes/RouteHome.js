@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import PageGameView from "./PageGameView";
-import LandingPage from "../components/LandingPage";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import PageLoading from "./PageLoading";
 import PageDesignDrawing from "./PageDesignDrawing";
 
-export class PageHome extends Component {
+// Routes
+import RouteLanding from "./RouteLanding";
+import RoutePlay from "./RoutePlay";
+
+export class RouteHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,10 +27,10 @@ export class PageHome extends Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact>
-            <LandingPage />
+            <RouteLanding />
           </Route>
           <Route path="/play">
-            {this.state.hasDataLoaded ? <PageGameView /> : <PageLoading />}
+            {this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />}
           </Route>
           <Route path="/design">
             <PageDesignDrawing />
@@ -39,4 +41,4 @@ export class PageHome extends Component {
   }
 }
 
-export default PageHome;
+export default RouteHome;

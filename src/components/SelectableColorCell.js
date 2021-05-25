@@ -8,6 +8,7 @@ export class SelectableColorCell extends Component {
     onClick: PropTypes.func,
     isSelected: PropTypes.bool,
     className: PropTypes.string,
+    accent: PropTypes.string,
   };
 
   static defaultProps = {
@@ -15,23 +16,20 @@ export class SelectableColorCell extends Component {
   };
 
   render() {
-    let modifiedProps = JSON.parse(JSON.stringify(this.props));
-    delete modifiedProps.isSelected;
-
-    let innerContent;
-    if (this.props.isSelected) {
-      innerContent = <span>✅</span>;
-    }
-
-    const classes = this.props.className + " flex items-center justify-center";
+    let { isSelected, className, accent, ...modifiedProps } = this.props;
 
     return (
       <ColorCell
         {...modifiedProps}
-        className={classes}
+        className={`${className} flex items-center justify-center`}
         onClick={this.props.onClick}
-        content={innerContent}
-      ></ColorCell>
+      >
+        {this.props.isSelected && (
+          <span className="text-xs tablet:text-base laptop:text-2xl select-none">
+            {accent}
+          </span>
+        )}
+      </ColorCell>
     );
   }
 }
