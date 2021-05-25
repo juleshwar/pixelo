@@ -4,6 +4,8 @@
  * :)
  */
 
+import * as UtilFunctions from "./UtilFunctions";
+
 // #region CONFIG
 // Base firework acceleration.
 // 1.0 causes fireworks to travel at a constant speed.
@@ -154,7 +156,7 @@ class FireworkService {
     // Determine if ticks since last automated launch is greater than random min/max values.
     if (
       this.ticksSinceFireworkAutomated >=
-      getRandomNumberInRange(
+      UtilFunctions.getRandomNumberInclusiveWithinRange(
         TICKS_PER_FIREWORK_AUTOMATED_MIN,
         TICKS_PER_FIREWORK_AUTOMATED_MAX
       )
@@ -162,14 +164,17 @@ class FireworkService {
       // Check if mouse is not currently clicked.
       if (!isMouseDown) {
         // Set start position to a random center-ish point on the bottom of the screen.
-        const startX = getRandomNumberInRange(
+        const startX = UtilFunctions.getRandomNumberInclusiveWithinRange(
           canvasElement.width * 0.25,
           canvasElement.width * 0.75
         );
         const startY = canvasElement.height;
         // Set end position to random position, somewhere in the top half of screen with an offset.
-        const endX = getRandomNumberInRange(0, canvasElement.width);
-        const endY = getRandomNumberInRange(
+        const endX = UtilFunctions.getRandomNumberInclusiveWithinRange(
+          0,
+          canvasElement.width
+        );
+        const endY = UtilFunctions.getRandomNumberInclusiveWithinRange(
           100,
           canvasElement.height / 2 + 100
         );
@@ -207,7 +212,7 @@ class FireworkService {
       // Check if mouse is down.
       if (isMouseDown) {
         // Set start position to a random center-ish point on the bottom of the screen.
-        const startX = getRandomNumberInRange(
+        const startX = UtilFunctions.getRandomNumberInclusiveWithinRange(
           canvasElement.width * 0.25,
           canvasElement.width * 0.75
         );
@@ -299,11 +304,6 @@ function addRequestAnimationFramePolyfill() {
   })();
 }
 
-// Get a random number within the specified range.
-function getRandomNumberInRange(min, max) {
-  return Math.random() * (max - min) + min;
-}
-
 // Calculate the distance between two points.
 function calculateDistance(aX, aY, bX, bY) {
   let xDistance = aX - bX;
@@ -349,7 +349,7 @@ class Firework {
     // Set the hue
     this.hue = hue;
     // Set the brightness.
-    this.brightness = getRandomNumberInRange(
+    this.brightness = UtilFunctions.getRandomNumberInclusiveWithinRange(
       FIREWORK_BRIGHTNESS_MIN,
       FIREWORK_BRIGHTNESS_MAX
     );
@@ -458,26 +458,35 @@ class Particle {
     this.x = x;
     this.y = y;
     // To better simulate a firework, set the angle of travel to random value in any direction.
-    this.angle = getRandomNumberInRange(0, Math.PI * 2);
+    this.angle = UtilFunctions.getRandomNumberInclusiveWithinRange(
+      0,
+      Math.PI * 2
+    );
     // Set friction.
     this.friction = PARTICLE_FRICTION;
     // Set gravity.
     this.gravity = PARTICLE_GRAVITY;
     // Set the hue to somewhat randomized number.
     // This gives the particles within a firework explosion an appealing variance.
-    this.hue = getRandomNumberInRange(
+    this.hue = UtilFunctions.getRandomNumberInclusiveWithinRange(
       hue - PARTICLE_HUE_VARIANCE,
       hue + PARTICLE_HUE_VARIANCE
     );
     // Set brightness.
-    this.brightness = getRandomNumberInRange(
+    this.brightness = UtilFunctions.getRandomNumberInclusiveWithinRange(
       PARTICLE_BRIGHTNESS_MIN,
       PARTICLE_BRIGHTNESS_MAX
     );
     // Set decay.
-    this.decay = getRandomNumberInRange(PARTICLE_DECAY_MIN, PARTICLE_DECAY_MAX);
+    this.decay = UtilFunctions.getRandomNumberInclusiveWithinRange(
+      PARTICLE_DECAY_MIN,
+      PARTICLE_DECAY_MAX
+    );
     // Set speed.
-    this.speed = getRandomNumberInRange(PARTICLE_SPEED_MIN, PARTICLE_SPEED_MAX);
+    this.speed = UtilFunctions.getRandomNumberInclusiveWithinRange(
+      PARTICLE_SPEED_MIN,
+      PARTICLE_SPEED_MAX
+    );
     // Create an array to track current trail particles.
     this.trail = [];
     // Trail length determines how many trailing particles are active at once.
