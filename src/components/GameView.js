@@ -19,7 +19,7 @@ export class GameView extends Component {
       templateMeta: UtilFunctions.getRandomTemplate(),
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
-      isWinnerScreenVisible: true,
+      isWinnerScreenVisible: false,
     };
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
