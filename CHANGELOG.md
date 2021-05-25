@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a logo for Pixelo
 - Added a loading screen
 - Fun `<noscript>` content
+- Updated favicons and manifest
 ### Changed
 - Added a CHANGELOG.md file.
 - Fully customized the look of Pixelo
