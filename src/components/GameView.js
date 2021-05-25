@@ -10,6 +10,7 @@ import { ReactComponent as PixeloIcon64 } from "../assets/svgs/pixelo-icon-64.sv
 import { Link } from "react-router-dom";
 import PixeloButton from "./PixeloButton";
 import FireworksCanvas from "./utils/FireworksCanvas";
+import FullPageDialog from "./utils/FullPageDialog";
 
 export class GameView extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export class GameView extends Component {
       templateMeta: UtilFunctions.getRandomTemplate(),
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
+      isWinnerScreenVisible: true,
     };
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
     this.doUpdateCurrentColor = this.doUpdateCurrentColor.bind(this);
@@ -25,6 +27,8 @@ export class GameView extends Component {
     this.areYouWinningSon = this.areYouWinningSon.bind(this);
     this.onUndo = this.onUndo.bind(this);
     this.onRedo = this.onRedo.bind(this);
+    this.showWinnerScreen = this.showWinnerScreen.bind(this);
+    this.hideWinnerScreen = this.hideWinnerScreen.bind(this);
     this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
@@ -88,7 +92,13 @@ export class GameView extends Component {
     };
     ActionStack.pushToStack(actionItem);
     modifiedMeta[colorIndex] = toColor;
-    this.setState({ currentMeta: modifiedMeta });
+
+    // Check if the user has won after drawing meta has updated
+    this.setState({ currentMeta: modifiedMeta }, () => {
+      if (this.areYouWinningSon()) {
+        this.showWinnerScreen();
+      }
+    });
   }
 
   doUpdateCurrentColor(color) {
@@ -120,6 +130,14 @@ export class GameView extends Component {
     ActionStack.clearStack();
   }
 
+  showWinnerScreen() {
+    this.setState({ isWinnerScreenVisible: true });
+  }
+
+  hideWinnerScreen() {
+    this.setState({ isWinnerScreenVisible: false });
+  }
+
   //#region Actions
   onUndo() {
     if (!ActionStack.isUndoPossible || this.areYouWinningSon()) {
@@ -142,22 +160,45 @@ export class GameView extends Component {
   //#endregion Actions
 
   render() {
-    let isSonWinning = this.areYouWinningSon();
+    const isSonWinning = this.areYouWinningSon();
 
-    /* TODO: Handle layout when user wins */
     /* TODO: Handle layout for extremely small screens */
 
     return (
-      <div className="relative flex flex-col h-full overflow-y-auto">
+      <div
+        className={`relative flex flex-col h-full ${
+          this.state.isWinnerScreenVisible ? "" : "overflow-y-auto"
+        }`}
+      >
+        <FullPageDialog
+          showDialog={this.state.isWinnerScreenVisible}
+          dialogBoxConfig={{
+            primaryButtonText: "Play Again",
+            secondaryButtonText: "Cancel",
+            confirm: () => {
+              this.setupNewGame();
+              this.hideWinnerScreen();
+            },
+            deny: this.hideWinnerScreen,
+          }}
+        >
+          <div className="grid h-full place-items-center text-center py-4 tablet:py-6 landscape:py-4">
+            <span className="text-4xl tablet:text-5xl">🥳</span>
+            <span>Ayy! Nice job!</span>
+            <span>You completed the drawing</span>
+          </div>
+        </FullPageDialog>
         <FireworksCanvas
-          className={`z-1 transition-opacity duration-300 absolute bg-black bg-opacity-70 ${
-            isSonWinning ? "opacity-100" : "w-0 h-0 invisible opacity-0"
+          className={`z-1 transition-opacity duration-300 absolute bg-black bg-opacity-70 w-full h-full ${
+            this.state.isWinnerScreenVisible
+              ? "opacity-100"
+              : "w-0 h-0 invisible opacity-0"
           }`}
-          startAnimationLoop={isSonWinning}
+          startAnimationLoop={this.state.isWinnerScreenVisible}
         />
         <div
           className={`transition-all duration-300 ${
-            isSonWinning ? "opacity-60" : ""
+            this.state.isWinnerScreenVisible ? "opacity-60" : ""
           }`}
         >
           <header className="flex bg-indigo-50 px-8 py-3 items-center justify-between h-14 tablet:h-18 landscape:px-9 tablet:px-16 laptop:h-24 laptop:px-40 laptop:py-5">
