@@ -224,7 +224,7 @@ export class GameView extends Component {
               <PixeloButton
                 title="Undo"
                 className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
-                disabled={!ActionStack.isUndoPossible}
+                disabled={!ActionStack.isUndoPossible || isSonWinning}
                 onClick={this.onUndo}
               >
                 <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
@@ -233,7 +233,7 @@ export class GameView extends Component {
                 title="Redo"
                 className="h-8 w-8 tablet:h-10 tablet:w-10 laptop:w-13 laptop:h-13"
                 style={{ transform: "scale(-1, 1)" }}
-                disabled={!ActionStack.isRedoPossible}
+                disabled={!ActionStack.isRedoPossible || isSonWinning}
                 onClick={this.onRedo}
               >
                 <SvgUndoArrow className="w-3 h-auto text-gray-600 fill-current laptop:w-5" />
