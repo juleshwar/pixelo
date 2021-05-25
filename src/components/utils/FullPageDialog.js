@@ -23,9 +23,9 @@ export class FullPageDialog extends Component {
       "left-0",
       "w-full",
       "h-full",
-      "grid",
-      "place-items-center",
-      "place-content-center",
+      "flex",
+      "items-center",
+      "justify-center",
       "overflow-hidden",
       "pointer-events-none"
     );
