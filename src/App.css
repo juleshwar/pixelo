@@ -2,3 +2,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .github-corner:hover .octo-arm {
+    @apply animate-octocat-wave phone:hover:animate-none phone:animate-octocat-wave;
+  }
+}

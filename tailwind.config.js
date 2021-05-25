@@ -22,6 +22,22 @@ module.exports = {
       boxShadow: {
         "color-cell": "0px 0px 8px 0px rgba(56, 56, 56, 0.1)",
       },
+      animation: {
+        "octocat-wave": "octocat-wave 500ms ease-in-out",
+      },
+      keyframes: {
+        "octocat-wave": {
+          "0%, 100%": {
+            transform: "rotate(0)",
+          },
+          "20%, 60%": {
+            transform: "rotate(-25deg)",
+          },
+          "40%, 80%": {
+            transform: "rotate(10deg)",
+          },
+        },
+      },
     },
     screens: {
       /* Screen orientations */
@@ -53,6 +69,7 @@ module.exports = {
       opacity: ["disabled"],
       borderColor: ["disabled"],
       cursor: ["hover", "disabled"],
+      animation: ["hover"],
     },
   },
   plugins: [],
