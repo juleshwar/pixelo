@@ -117,8 +117,8 @@ export class PaletteBar extends Component {
         className={
           `${className} grid ` +
           (layoutFormat === "row"
-            ? `grid-rows-1 grid-cols-${propColors.length} gap-x-2`
-            : `grid-cols-1 grid-rows-${propColors.length} gap-y-1`)
+            ? `grid-rows-1 grid-cols-9 gap-x-2`
+            : `grid-cols-1 grid-rows-9 gap-y-1`)
         }
       >
         {paletteList}
