@@ -5,7 +5,10 @@ import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import PixeloInput from "./PixeloInput";
 import * as AirtableService from "../services/AirtableService";
-import { PRESET_DRAWINGS_BASE_NAME } from "../constants/PixeloConstants";
+import {
+  REVERSE_COLOR_PALETTE_MAP,
+  PRESET_DRAWINGS_BASE_NAME,
+} from "../constants/PixeloConstants";
 
 export class DesignDrawing extends Component {
   constructor(props) {
@@ -14,6 +17,7 @@ export class DesignDrawing extends Component {
       drawingName: "",
       currentColor: PixeloStateHandler.COLOR_PALETTE[1],
       currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+      isSubmittingDesign: false,
     };
     this.onChangeDrawingName = this.onChangeDrawingName.bind(this);
     this.doUpdateDrawingMeta = this.doUpdateDrawingMeta.bind(this);
@@ -42,17 +46,22 @@ export class DesignDrawing extends Component {
 
   async onSubmitDrawing(submitEvent) {
     submitEvent.preventDefault();
+    this.setState({ isSubmittingDesign: true });
+    const colorMappedMeta = this.state.currentMeta.map(
+      (hex) => REVERSE_COLOR_PALETTE_MAP[hex]
+    );
     const payload = {
-      name: this.state.drawingName.toUpperCase().replace(" ", "_"),
-      template: JSON.stringify(this.state.currentMeta),
+      name: this.state.drawingName.toUpperCase().replaceAll(" ", "_"),
+      template: JSON.stringify(colorMappedMeta),
     };
     await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
+    this.setState({ isSubmittingDesign: false });
     this.resetDrawing();
   }
 
   resetDrawing() {
     this.setState({
-      drawingMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
+      currentMeta: PixeloStateHandler.state.DRAWINGS.cleanSlate,
     });
     this.setState({ drawingName: "" });
   }
@@ -92,10 +101,13 @@ export class DesignDrawing extends Component {
             }}
           />
           <button
-            className="px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white"
+            className={`px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white ${
+              this.state.isSubmittingDesign ? "animate-pulse" : ""
+            }`}
+            disabled={this.state.isSubmittingDesign}
             onClick={this.onSubmitDrawing}
           >
-            Submit Drawing
+            {this.state.isSubmittingDesign ? "Submitting..." : "Submit Drawing"}
           </button>
         </form>
       </div>
