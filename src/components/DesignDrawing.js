@@ -75,6 +75,7 @@ export class DesignDrawing extends Component {
   }
 
   render() {
+    /* TODO: Use GameView component with designMode prop and get rid of this component */
     return (
       <div className="grid py-4 place-items-center gap-3 h-screen">
         <PaletteBar
