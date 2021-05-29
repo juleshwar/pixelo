@@ -14,8 +14,12 @@ const DEFAULT_PIXELO_SETTINGS = {
 };
 
 class LocalStorageServiceBean {
-  pixeloSettings = this.attemptRetrievePixeloSettingsFromLocalStorage();
+  pixeloSettings = undefined;
   areStorageApisAvailable = this.checkIfStorageApiAvailable("localStorage");
+
+  constructor() {
+    this.pixeloSettings = this.attemptRetrievePixeloSettingsFromLocalStorage();
+  }
 
   toggleSetting(prop) {
     if (prop === SETTINGS_OPTIONS.GAME_LAYOUT) {
@@ -37,7 +41,7 @@ class LocalStorageServiceBean {
 
   setItem(prop, value) {
     this.pixeloSettings[prop] = value;
-    this.attemptUpdatePixeloSettingsInLocalStorage(prop, value);
+    this.attemptUpdatePixeloSettingsInLocalStorage();
   }
 
   attemptUpdatePixeloSettingsInLocalStorage() {
@@ -94,4 +98,4 @@ class LocalStorageServiceBean {
   }
 }
 const LocalStorageService = new LocalStorageServiceBean();
-export { LocalStorageService };
+export { LocalStorageService, GAME_LAYOUT };
