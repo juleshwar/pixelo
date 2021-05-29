@@ -22,7 +22,6 @@ export class RouteHome extends Component {
     });
   }
   render() {
-    /* TODO: Handle loading state gracefully */
     return (
       <BrowserRouter>
         <Switch>
