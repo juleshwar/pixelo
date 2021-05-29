@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PixeloStateHandler from "../services/PixeloStateHandler";
-import PageLoading from "./PageLoading";
+import PageLoading from "../components/utils/PageLoading";
 import RouteDesign from "./RouteDesign";
 
 // Routes
