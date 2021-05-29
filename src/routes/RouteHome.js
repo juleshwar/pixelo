@@ -7,6 +7,7 @@ import RouteDesign from "./RouteDesign";
 // Routes
 import RouteLanding from "./RouteLanding";
 import RoutePlay from "./RoutePlay";
+import RouteSettings from "./RouteSettings";
 
 export class RouteHome extends Component {
   constructor(props) {
@@ -30,6 +31,9 @@ export class RouteHome extends Component {
           </Route>
           <Route path="/play">
             {this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />}
+          </Route>
+          <Route path="/settings">
+            <RouteSettings />
           </Route>
           <Route path="/design">
             <RouteDesign />
