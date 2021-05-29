@@ -97,11 +97,13 @@ class FireworkService {
     this.ticksSinceFirework = 0;
 
     this.fireworkAnimationLoop = this.fireworkAnimationLoop.bind(this);
+    this.animRequestId = undefined;
+    this.isRunning = false;
   }
 
   init(fireworkOnMouseClick) {
     // Adding polyfills
-    addRequestAnimationFramePolyfill();
+    addAnimationFramePolyfills();
 
     if (fireworkOnMouseClick) {
       this.addMouseEventListeners();
@@ -260,7 +262,7 @@ class FireworkService {
   // Primary loop.
   fireworkAnimationLoop() {
     // Smoothly request animation frame for each loop iteration.
-    window.requestAnimFrame(this.fireworkAnimationLoop);
+    this.animRequestId = window.requestAnimFrame(this.fireworkAnimationLoop);
 
     // Adjusts coloration of fireworks over time.
     this.hue += HUE_STEP_INCREASE;
@@ -280,11 +282,26 @@ class FireworkService {
     // Launch manual fireworks.
     this.launchManualFirework();
   }
+
+  startAnimationLoop() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.fireworkAnimationLoop();
+    }
+  }
+
+  stopAnimationLoop() {
+    if (this.isRunning) {
+      this.isRunning = false;
+      window.cancelAnimFrame(this.animRequestId);
+      this.animRequestId = null;
+    }
+  }
   // #endregion Application helper functions
 }
 
 // #region Helper functions
-function addRequestAnimationFramePolyfill() {
+function addAnimationFramePolyfills() {
   // Use requestAnimationFrame to maintain smooth animation loops.
   // Fall back on setTimeout() if browser support isn't available.
   window.requestAnimFrame = (() => {
@@ -294,6 +311,17 @@ function addRequestAnimationFramePolyfill() {
       window.mozRequestAnimationFrame ||
       function (callback) {
         window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  })();
+
+  window.cancelAnimFrame = ((id) => {
+    return (
+      window.cancelAnimationFrame ||
+      window.webkitCancelAnimationFrame ||
+      window.mozCancelAnimationFrame ||
+      function (id) {
+        window.clearTimeout(id);
       }
     );
   })();
