@@ -15,7 +15,7 @@ export class ColorCell extends Component {
   render() {
     return (
       <div
-        className={`${this.props.className} relative rounded`}
+        className={`${this.props.className} relative`}
         style={{ background: this.props.color }}
         onClick={this.props.onClick}
         draggable={false}
