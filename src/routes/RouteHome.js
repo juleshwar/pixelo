@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import PageLoading from "./PageLoading";
-import PageDesignDrawing from "./PageDesignDrawing";
+import RouteDesign from "./RouteDesign";
 
 // Routes
 import RouteLanding from "./RouteLanding";
@@ -33,7 +33,7 @@ export class RouteHome extends Component {
             {this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />}
           </Route>
           <Route path="/design">
-            <PageDesignDrawing />
+            <RouteDesign />
           </Route>
         </Switch>
       </BrowserRouter>
