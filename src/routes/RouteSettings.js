@@ -19,9 +19,13 @@ export class RouteSettings extends Component {
       if (Object.hasOwnProperty.call(pixeloSettings, settingKey)) {
         const settingValue = pixeloSettings[settingKey];
         listItems.push(
-          <li key={settingKey}>
-            {settingKey}:
-            <button onClick={this.onChangeSetting.bind(this, settingKey)}>
+          <li key={settingKey} className="flex justify-between items-center">
+            <p className="capitalize w-1/5">{settingKey}</p>
+            <hr className="w-3/5 border-gray-300 mx-6" />
+            <button
+              onClick={this.onChangeSetting.bind(this, settingKey)}
+              className="capitalize w-1/5"
+            >
               {settingValue}
             </button>
           </li>
@@ -29,8 +33,9 @@ export class RouteSettings extends Component {
       }
     }
     return (
-      <section className="h-full grid place-items-center place-content-center">
-        <ul>{listItems}</ul>
+      <section className="h-full grid place-items-center gap-7 place-content-center">
+        <h1 className="text-3xl">Settings</h1>
+        <ul className="w-96 grid gap-3 text-2xl">{listItems}</ul>
       </section>
     );
   }
