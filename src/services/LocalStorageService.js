@@ -110,4 +110,5 @@ class LocalStorageServiceBean {
   }
 }
 const LocalStorageService = new LocalStorageServiceBean();
-export { LocalStorageService, GAME_LAYOUT };
+
+export { LocalStorageService, GAME_LAYOUT, LOCAL_STORAGE_PROPS };
