@@ -3,6 +3,7 @@ import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import AspectRatioWrapper from "./utils/AspectRatioWrapper";
+import refForwarder from "./utils/RefForwarder";
 
 export class DrawingPanel extends Component {
   static propTypes = {
@@ -38,9 +39,10 @@ export class DrawingPanel extends Component {
   }
 
   render() {
-    const { className, drawingMeta, isReadOnly } = this.props;
+    const { forwardedRef, className, drawingMeta, isReadOnly } = this.props;
     return (
       <div
+        ref={forwardedRef}
         className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${className}`}
       >
         {drawingMeta.map((cellColor, cellIndex) => {
@@ -81,4 +83,4 @@ export class DrawingPanel extends Component {
   }
 }
 
-export default DrawingPanel;
+export default refForwarder(DrawingPanel);
