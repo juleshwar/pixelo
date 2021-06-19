@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { LocalStorageService } from "../services/LocalStorageService";
 
 export class RouteSettings extends Component {
@@ -34,7 +35,12 @@ export class RouteSettings extends Component {
     }
     return (
       <section className="h-full grid place-items-center gap-7 place-content-center">
-        <h1 className="text-3xl">Settings</h1>
+        <div className="flex items-center justify-center w-96 relative">
+          <Link to="/" className="text-2xl absolute left-0">
+            🔙
+          </Link>
+          <h1 className="text-3xl">Settings</h1>
+        </div>
         <ul className="w-96 grid gap-3 text-2xl">{listItems}</ul>
       </section>
     );
