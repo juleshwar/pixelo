@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dc99fea8.chunk.css",
+    "main.js": "/static/js/main.a333b0a5.chunk.js",
+    "main.js.map": "/static/js/main.a333b0a5.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a4308888.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a4308888.js.map",
+    "static/js/2.160c777a.chunk.js": "/static/js/2.160c777a.chunk.js",
+    "static/js/2.160c777a.chunk.js.map": "/static/js/2.160c777a.chunk.js.map",
+    "static/js/3.ccabbcba.chunk.js": "/static/js/3.ccabbcba.chunk.js",
+    "static/js/3.ccabbcba.chunk.js.map": "/static/js/3.ccabbcba.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.dc99fea8.chunk.css.map": "/static/css/main.dc99fea8.chunk.css.map",
+    "static/js/2.160c777a.chunk.js.LICENSE.txt": "/static/js/2.160c777a.chunk.js.LICENSE.txt",
+    "static/media/octocat.fddc07cc.svg": "/static/media/octocat.fddc07cc.svg",
+    "static/media/pixelo-icon-64.859bc29d.svg": "/static/media/pixelo-icon-64.859bc29d.svg",
+    "static/media/transparent-pixelo-logo.668d0f58.svg": "/static/media/transparent-pixelo-logo.668d0f58.svg",
+    "static/media/undo-arrow.95707c8c.svg": "/static/media/undo-arrow.95707c8c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a4308888.js",
+    "static/js/2.160c777a.chunk.js",
+    "static/css/main.dc99fea8.chunk.css",
+    "static/js/main.a333b0a5.chunk.js"
+  ]
+}
