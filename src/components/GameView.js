@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
@@ -11,6 +11,11 @@ import { Link } from "react-router-dom";
 import PixeloButton from "./PixeloButton";
 import FireworksCanvas from "./utils/FireworksCanvas";
 import FullPageDialog from "./utils/FullPageDialog";
+
+/* Tour Setup */
+import Driver from "driver.js";
+import "../styles/third-party/driver.scss";
+import { DEVICE_TYPE } from "../constants/PixeloConstants";
 
 export class GameView extends Component {
   constructor(props) {
@@ -31,16 +36,107 @@ export class GameView extends Component {
     this.hideWinnerScreen = this.hideWinnerScreen.bind(this);
     this.hotkeyComboHandler = this.hotkeyComboHandler.bind(this);
 
+    //#region Page Tour
+    //tourDriver
+    this.tourDriver = new Driver({
+      className: "driver-popover-item",
+      nextBtnText: "➡️",
+      prevBtnText: "⬅️",
+      closeBtnText: "⏭",
+      doneBtnText: "👍🏼",
+      allowClose: false,
+    });
+    //refs
+    this.paletteBarRefs = [createRef(), createRef(), createRef()];
+    this.drawingPanelRef = createRef();
+    this.actionButtons = createRef();
+    //#endregion Page Tour
+
     UtilFunctions.modifyCursorOnColorSelect(this.state.currentColor);
   }
 
   componentDidMount() {
+    this.showTour();
     this.bindHotkeyCombos();
   }
 
   componentWillUnmount() {
     this.unbindHotkeyCombos();
   }
+
+  //#region Page Tour methods
+  showTour() {
+    /* Checking which paletteBar is visible currently based on the layout/device */
+    const visiblePaletteBarRef = this.paletteBarRefs.find(
+      (pB) => pB.current.offsetParent !== null
+    );
+
+    const DESKTOP_STEPS = [
+      {
+        element: this.drawingPanelRef.current,
+        popover: {
+          title: "Drawing Panel",
+          description: "This is where you duplicate the other drawing.",
+          position: "left",
+        },
+      },
+      {
+        element: visiblePaletteBarRef.current,
+        popover: {
+          title: "Color Palette",
+          description:
+            "You can choose colors here. Keyboard buttons 1-9 are mapped to the colors as well.",
+        },
+      },
+      {
+        element: this.actionButtons.current,
+        popover: {
+          title: "Action Buttons",
+          description:
+            "These are the action button. You can undo/redo with your keyboard as well.",
+        },
+      },
+    ];
+
+    const MOBILE_STEPS = [
+      {
+        element: this.drawingPanelRef.current,
+        popover: {
+          title: "Drawing Panel",
+          description: "This is where you duplicate the other drawing.",
+        },
+      },
+      {
+        element: visiblePaletteBarRef.current,
+        popover: {
+          title: "Color Palette",
+          description: "You can choose colors from the palette.",
+        },
+      },
+      {
+        element: this.actionButtons.current,
+        popover: {
+          title: "Action Buttons",
+          description: "You can undo/redo or start a new game from here.",
+        },
+      },
+    ];
+
+    switch (UtilFunctions.getDeviceType()) {
+      case DEVICE_TYPE.MOBILE:
+        this.tourDriver.defineSteps(MOBILE_STEPS);
+        break;
+
+      default:
+      case DEVICE_TYPE.DESKTOP:
+      case DEVICE_TYPE.TABLET:
+        this.tourDriver.defineSteps(DESKTOP_STEPS);
+        break;
+    }
+
+    this.tourDriver.start();
+  }
+  //#endregion Page Tour methods
 
   bindHotkeyCombos() {
     window.addEventListener("keydown", this.hotkeyComboHandler);
@@ -206,12 +302,16 @@ export class GameView extends Component {
               <PixeloIcon64 className="w-4 h-auto tablet:w-6 laptop:w-8" />
             </Link>
             <PaletteBar
+              ref={this.paletteBarRefs[0]}
               colors={PixeloStateHandler.COLOR_PALETTE}
               selectedColor={this.state.currentColor}
               doUpdateSelectedColor={this.doUpdateCurrentColor}
               className="hidden w-80 tablet:grid tablet:w-106 laptop:w-134"
             />
-            <div className="flex justify-between w-8/12 phone:w-1/3 landscape:w-2/6 tablet:w-56 tablet:h-10 laptop:w-72 laptop:h-13">
+            <div
+              ref={this.actionButtons}
+              className="flex justify-between w-8/12 phone:w-1/3 landscape:w-2/6 tablet:w-56 tablet:h-10 laptop:w-72 laptop:h-13"
+            >
               <PixeloButton
                 title="Start a new game"
                 onClick={this.setupNewGame}
@@ -248,6 +348,7 @@ export class GameView extends Component {
                 doUpdateCellColor={this.doUpdateDrawingMeta}
               />
               <DrawingPanel
+                ref={this.drawingPanelRef}
                 className="w-full"
                 drawingMeta={this.state.currentMeta}
                 doUpdateCellColor={this.doUpdateDrawingMeta}
@@ -255,6 +356,7 @@ export class GameView extends Component {
               />
             </section>
             <PaletteBar
+              ref={this.paletteBarRefs[1]}
               colors={PixeloStateHandler.COLOR_PALETTE}
               selectedColor={this.state.currentColor}
               doUpdateSelectedColor={this.doUpdateCurrentColor}
@@ -264,6 +366,7 @@ export class GameView extends Component {
           </div>
           <footer className="flex pb-4 px-11 justify-center justify-self-end landscape:hidden tablet:hidden">
             <PaletteBar
+              ref={this.paletteBarRefs[2]}
               colors={PixeloStateHandler.COLOR_PALETTE}
               selectedColor={this.state.currentColor}
               doUpdateSelectedColor={this.doUpdateCurrentColor}

@@ -54,7 +54,7 @@ export class LandingPage extends Component {
       <div className="w-full h-screen flex flex-col items-center justify-center">
         <a
           href="https://github.com/juleshwar/pixelo"
-          class="github-corner"
+          className="github-corner"
           aria-label="View source on GitHub"
         >
           <OctocatSvg
