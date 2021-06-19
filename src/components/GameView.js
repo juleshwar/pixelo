@@ -16,6 +16,7 @@ import FullPageDialog from "./utils/FullPageDialog";
 import Driver from "driver.js";
 import "../styles/third-party/driver.scss";
 import { DEVICE_TYPE } from "../constants/PixeloConstants";
+import { LocalStorageService } from "../services/LocalStorageService";
 
 export class GameView extends Component {
   constructor(props) {
@@ -45,6 +46,9 @@ export class GameView extends Component {
       closeBtnText: "⏭",
       doneBtnText: "👍🏼",
       allowClose: false,
+      onReset: () => {
+        LocalStorageService.setTourCompleted();
+      },
     });
     //refs
     this.paletteBarRefs = [createRef(), createRef(), createRef()];
@@ -56,7 +60,11 @@ export class GameView extends Component {
   }
 
   componentDidMount() {
-    this.showTour();
+    console.log("LocalStorageService", LocalStorageService.getTourCompleted());
+
+    if (!LocalStorageService.getTourCompleted()) {
+      this.showTour();
+    }
     this.bindHotkeyCombos();
   }
 

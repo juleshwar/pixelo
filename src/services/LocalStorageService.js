@@ -1,7 +1,8 @@
 const PIXELO_SETTINGS_LOCAL_STORAGE_KEY = "Pixelo_Settings";
 
-const SETTINGS_OPTIONS = {
+const LOCAL_STORAGE_PROPS = {
   GAME_LAYOUT: "layout",
+  TOUR_COMPLETED: "tour_completed",
 };
 
 const GAME_LAYOUT = {
@@ -10,7 +11,8 @@ const GAME_LAYOUT = {
 };
 
 const DEFAULT_PIXELO_SETTINGS = {
-  [SETTINGS_OPTIONS.GAME_LAYOUT]: GAME_LAYOUT.MODERN,
+  [LOCAL_STORAGE_PROPS.GAME_LAYOUT]: GAME_LAYOUT.MODERN,
+  [LOCAL_STORAGE_PROPS.TOUR_COMPLETED]: false,
 };
 
 class LocalStorageServiceBean {
@@ -21,19 +23,29 @@ class LocalStorageServiceBean {
     this.pixeloSettings = this.attemptRetrievePixeloSettingsFromLocalStorage();
   }
 
+  //#region Util functions
   toggleSetting(prop) {
-    if (prop === SETTINGS_OPTIONS.GAME_LAYOUT) {
+    if (prop === LOCAL_STORAGE_PROPS.GAME_LAYOUT) {
       this.toggleGameLayout();
     }
   }
 
   toggleGameLayout() {
-    if (this.getItem(SETTINGS_OPTIONS.GAME_LAYOUT) === GAME_LAYOUT.CLASSIC) {
-      this.setItem(SETTINGS_OPTIONS.GAME_LAYOUT, GAME_LAYOUT.MODERN);
+    if (this.getItem(LOCAL_STORAGE_PROPS.GAME_LAYOUT) === GAME_LAYOUT.CLASSIC) {
+      this.setItem(LOCAL_STORAGE_PROPS.GAME_LAYOUT, GAME_LAYOUT.MODERN);
     } else {
-      this.setItem(SETTINGS_OPTIONS.GAME_LAYOUT, GAME_LAYOUT.CLASSIC);
+      this.setItem(LOCAL_STORAGE_PROPS.GAME_LAYOUT, GAME_LAYOUT.CLASSIC);
     }
   }
+
+  getTourCompleted() {
+    return this.getItem(LOCAL_STORAGE_PROPS.TOUR_COMPLETED);
+  }
+
+  setTourCompleted() {
+    this.setItem(LOCAL_STORAGE_PROPS.TOUR_COMPLETED, true);
+  }
+  //#endregion Util functions
 
   getItem(prop) {
     return this.pixeloSettings[prop];
