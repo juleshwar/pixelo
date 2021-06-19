@@ -61,8 +61,14 @@ const PALETTE_BAR_EMOJIS = [
   "🎉",
   "🎁",
 ];
+const DEVICE_TYPE = {
+  DESKTOP: "desktop",
+  TABLET: "tablet",
+  MOBILE: "mobile",
+};
 
 export {
+  DEVICE_TYPE,
   PRESET_DRAWINGS_BASE_NAME,
   COLOR_PALETTE_MAP,
   REVERSE_COLOR_PALETTE_MAP,

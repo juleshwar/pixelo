@@ -1,3 +1,4 @@
+import { DEVICE_TYPE } from "../constants/PixeloConstants";
 import PixeloStateHandler from "./PixeloStateHandler";
 
 function compareDrawingMeta(metaA, metaB) {
@@ -36,7 +37,23 @@ function getRandomNumberInclusiveWithinRange(a, b) {
   return Math.min(a, b) + Math.floor(Math.random() * (Math.abs(b - a) + 1));
 }
 
+function getDeviceType() {
+  const uA = navigator.userAgent;
+  if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(uA)) {
+    return DEVICE_TYPE.TABLET;
+  }
+  if (
+    /Mobile|iP(hone|od)|Android|BlackBerry|IEMobile|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+      uA
+    )
+  ) {
+    return DEVICE_TYPE.MOBILE;
+  }
+  return DEVICE_TYPE.DESKTOP;
+}
+
 export {
+  getDeviceType,
   compareDrawingMeta,
   getRandomTemplate,
   modifyCursorOnColorSelect,

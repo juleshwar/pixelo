@@ -7,6 +7,7 @@ import {
   LocalStorageService,
   GAME_LAYOUT,
 } from "../services/LocalStorageService";
+import refForwarder from "./utils/RefForwarder";
 
 export class DrawingPanel extends Component {
   static propTypes = {
@@ -44,9 +45,10 @@ export class DrawingPanel extends Component {
   render() {
     const isModernLayout =
       LocalStorageService.pixeloSettings.layout === GAME_LAYOUT.MODERN;
-    const { className, drawingMeta, isReadOnly } = this.props;
+    const { forwardedRef, className, drawingMeta, isReadOnly } = this.props;
     return (
       <div
+        ref={forwardedRef}
         className={`grid grid-cols-10 grid-rows-10 ${className} ${
           isModernLayout ? "gap-0.75 tablet:gap-1" : "gap-0.5 bg-gray-200"
         }`}
@@ -91,4 +93,4 @@ export class DrawingPanel extends Component {
   }
 }
 
-export default DrawingPanel;
+export default refForwarder(DrawingPanel);

@@ -5,6 +5,7 @@ import AspectRatioWrapper from "./utils/AspectRatioWrapper";
 import * as UtilFunctions from "../services/UtilFunctions";
 import { PALETTE_BAR_EMOJIS } from "../constants/PixeloConstants";
 import PixeloStateHandler from "../services/PixeloStateHandler";
+import refForwarder from "./utils/RefForwarder";
 
 export class PaletteBar extends Component {
   constructor(props) {
@@ -92,7 +93,8 @@ export class PaletteBar extends Component {
   }
 
   render() {
-    const { layoutFormat, colors, selectedColor, className } = this.props;
+    const { forwardedRef, layoutFormat, colors, selectedColor, className } =
+      this.props;
     const propColors = colors;
     const emoji = PALETTE_BAR_EMOJIS[this.state.emojiIndex];
     const paletteList = propColors.map((color) => {
@@ -114,6 +116,7 @@ export class PaletteBar extends Component {
     });
     return (
       <nav
+        ref={forwardedRef}
         className={
           `${className} grid ` +
           (layoutFormat === "row"
@@ -127,4 +130,4 @@ export class PaletteBar extends Component {
   }
 }
 
-export default PaletteBar;
+export default refForwarder(PaletteBar);
