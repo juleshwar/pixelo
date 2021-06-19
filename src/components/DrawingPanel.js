@@ -3,6 +3,10 @@ import ColorCell from "./ColorCell";
 import PropTypes from "prop-types";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import AspectRatioWrapper from "./utils/AspectRatioWrapper";
+import {
+  LocalStorageService,
+  GAME_LAYOUT,
+} from "../services/LocalStorageService";
 import refForwarder from "./utils/RefForwarder";
 
 export class DrawingPanel extends Component {
@@ -39,11 +43,15 @@ export class DrawingPanel extends Component {
   }
 
   render() {
+    const isModernLayout =
+      LocalStorageService.pixeloSettings.layout === GAME_LAYOUT.MODERN;
     const { forwardedRef, className, drawingMeta, isReadOnly } = this.props;
     return (
       <div
         ref={forwardedRef}
-        className={`grid grid-cols-10 grid-rows-10 gap-0.75 tablet:gap-1 ${className}`}
+        className={`grid grid-cols-10 grid-rows-10 ${className} ${
+          isModernLayout ? "gap-0.75 tablet:gap-1" : "gap-0.5 bg-gray-200"
+        }`}
       >
         {drawingMeta.map((cellColor, cellIndex) => {
           return (
@@ -67,7 +75,9 @@ export class DrawingPanel extends Component {
             >
               <AspectRatioWrapper
                 aspectRatioInPercentage="100%"
-                className="rounded shadow-color-cell"
+                className={`${
+                  isModernLayout ? "rounded shadow-color-cell" : ""
+                }`}
               >
                 <ColorCell
                   index={cellIndex}

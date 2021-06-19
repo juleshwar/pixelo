@@ -7,9 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [2.1.2] - 2021-06-13
 ### Added
 - A page tour in `GameView`
-## [2.0.2] - 2021-06-13
+## [2.0.3] - 2021-06-13
 ### Added 
 - Added *./build* folder to git repo
+## [2.0.2] - 2021-05-29
+### Changes
+- Removed a critical bug in `FireworkCanvas` which caused major performance hit
 
 ## [2.0.1] - 2021-05-26
 ### Added 

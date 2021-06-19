@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoadingIcon from "../components/LoadingIcon";
+import LoadingIcon from "../LoadingIcon";
 
 export class PageLoading extends Component {
   render() {

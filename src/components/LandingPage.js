@@ -4,6 +4,7 @@ import PixeloStateHandler from "../services/PixeloStateHandler";
 import * as UtilMethods from "../services/UtilFunctions";
 import { ReactComponent as TransparentPixeloLogo } from "../assets/svgs/transparent-pixelo-logo.svg";
 import { ReactComponent as OctocatSvg } from "../assets/svgs/octocat.svg";
+import PixeloButton from "./PixeloButton";
 
 export class LandingPage extends Component {
   constructor(props) {
@@ -73,9 +74,16 @@ export class LandingPage extends Component {
           className="h-auto w-64 transition-colors ease-in duration-500 phone:w-1/2 laptop:w-5/12 desktop:w-120"
           fill={accentColor}
         />
-        <Link to="/play" className="mt-10 text-blue-500">
-          click here to play
-        </Link>
+        <div className="mt-10 grid grid-flow-row gap-6">
+          <Link to="/play" className=" text-blue-500">
+            <PixeloButton className="w-32 py-2 text-base">Play</PixeloButton>
+          </Link>
+          <Link to="/settings" className="text-blue-500">
+            <PixeloButton className="w-32 py-2 text-base">
+              Settings
+            </PixeloButton>
+          </Link>
+        </div>
       </div>
     );
   }
