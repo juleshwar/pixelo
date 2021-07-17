@@ -23,7 +23,6 @@
     "test": "craco test",
     "deploy": "surge ./build pixelo.surge.sh",
     "bad": "yarn build && yarn deploy",
-    "convert-svgs": "npx @svgr/cli --config-file .svgrrc.json -d src/components/svgs src/assets/svgs",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
