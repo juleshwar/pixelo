@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "craco-plugin-env": "^1.0.5",
     "postcss": "^8.4.23",
     "sass": "^1.62.1"
   }

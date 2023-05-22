@@ -39,6 +39,9 @@ devDependencies:
   '@craco/craco':
     specifier: ^7.1.0
     version: 7.1.0(@types/node@20.2.3)(postcss@8.4.23)(react-scripts@5.0.1)(typescript@5.0.4)
+  craco-plugin-env:
+    specifier: ^1.0.5
+    version: 1.0.5(@craco/craco@7.1.0)
   postcss:
     specifier: ^8.4.23
     version: 8.4.23
@@ -3483,6 +3486,16 @@ packages:
       parse-json: 5.2.0
       path-type: 4.0.0
       yaml: 1.10.2
+
+  /craco-plugin-env@1.0.5(@craco/craco@7.1.0):
+    resolution: {integrity: sha512-Y6wgOHrWZy0y3yI0Mgi+6Xd14QYhTq6TLucnyossVmYgMgQBikh3GETiO7s2qKzJGVYhM7OkF9AFmkWN9PTEfA==}
+    peerDependencies:
+      '@craco/craco': '>=6.0.0'
+    dependencies:
+      '@craco/craco': 7.1.0(@types/node@20.2.3)(postcss@8.4.23)(react-scripts@5.0.1)(typescript@5.0.4)
+      dotenv: 10.0.0
+      dotenv-expand: 5.1.0
+    dev: true
 
   /create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
