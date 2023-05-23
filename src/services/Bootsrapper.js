@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDom from "react-dom";
+import { createRoot } from "react-dom/client";
 import { App as PixeloApp } from "../App";
 
 class BootstrapperBean {
@@ -15,12 +15,13 @@ class BootstrapperBean {
   }
 
   bootstrapPixelo(elementSelector = "pixelo-element") {
-    ReactDom.render(
+    createRoot(
+      document.getElementById(elementSelector)
+    ).render(
       <React.StrictMode>
         <PixeloApp />
       </React.StrictMode>,
-      document.getElementById(elementSelector)
-    );
+    )
   }
 }
 const Bootstrapper = new BootstrapperBean();

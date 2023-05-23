@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2023-05-23
+## Changed
+- Upgraded all dependencies to latest in package.json & made corresponding file changes
+- Switched from yarn to pnpm
+
+## Removed
+- Removed explicit tailwind dev dependency as it is implicitly supported by react-scripts v5
+
 ## [2.1.4] - 2021-07-17
 ## Added
 - "type: module" in `package.json`

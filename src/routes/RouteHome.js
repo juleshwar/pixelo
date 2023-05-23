@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import PageLoading from "../components/utils/PageLoading";
 import RouteDesign from "./RouteDesign";
@@ -25,20 +25,12 @@ export class RouteHome extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact>
-            <RouteLanding />
-          </Route>
-          <Route path="/play">
-            {this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />}
-          </Route>
-          <Route path="/settings">
-            <RouteSettings />
-          </Route>
-          <Route path="/design">
-            <RouteDesign />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/" exact element={<RouteLanding />} />
+          <Route path="/play" element={this.state.hasDataLoaded ? <RoutePlay /> : <PageLoading />} />
+          <Route path="/settings" element={<RouteSettings />} />
+          <Route path="/design" element={<RouteDesign />} />
+        </Routes>
       </BrowserRouter>
     );
   }

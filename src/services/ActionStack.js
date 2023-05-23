@@ -63,4 +63,5 @@ class ActionStack {
 }
 
 /* Singleton class coz we're gonna maintain only one stack */
-export default new ActionStack();
+const singetonActionStack = new ActionStack();
+export default singetonActionStack
