@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0] - 2026-11-05
+### Changed
+- Preset drawings are stored in Supabase instead of Airtable (`supabase/schema.sql`).
+- Build moved from Create React App and craco to Vite.
+- Upgraded to React 19 and React Router 7.
+- Deploys to pixelo.juleshwar.dev with pnpm and Node 22.
+
+### Fixed
+- `/play` could render an empty template when drawings were requested twice at once.
+
+### Removed
+- Airtable client and its API key, which was bundled into the public site.
+
 ## [3.0.0] - 2023-05-23
 ## Changed
 - Upgraded all dependencies to latest in package.json & made corresponding file changes

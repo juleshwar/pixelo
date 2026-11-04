@@ -4,11 +4,8 @@ import * as UtilFunctions from "../services/UtilFunctions";
 import DrawingPanel from "./DrawingPanel";
 import PaletteBar from "./PaletteBar";
 import PixeloInput from "./PixeloInput";
-import * as AirtableService from "../services/AirtableService";
-import {
-  REVERSE_COLOR_PALETTE_MAP,
-  PRESET_DRAWINGS_BASE_NAME,
-} from "../constants/PixeloConstants";
+import * as SupabaseService from "../services/SupabaseService";
+import { REVERSE_COLOR_PALETTE_MAP } from "../constants/PixeloConstants";
 
 export class DesignDrawing extends Component {
   constructor(props) {
@@ -52,9 +49,9 @@ export class DesignDrawing extends Component {
     );
     const payload = {
       name: this.state.drawingName.toUpperCase().replaceAll(" ", "_"),
-      template: JSON.stringify(colorMappedMeta),
+      template: colorMappedMeta,
     };
-    await AirtableService.postData(PRESET_DRAWINGS_BASE_NAME, payload);
+    await SupabaseService.postPresetDrawing(payload);
     this.setState({ isSubmittingDesign: false });
     this.resetDrawing();
   }

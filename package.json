@@ -1,54 +1,35 @@
 {
   "name": "pixelo",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "type": "module",
   "author": {
     "name": "Juleshwar Babu",
     "url": "https://juleshwar.dev"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
-    "airtable": "^0.12.1",
-    "driver.js": "^0.9.8",
+    "@supabase/supabase-js": "^2.119.0",
+    "driver.js": "0.9.8",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^3.3.1"
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router-dom": "^7.18.5"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "deploy": "surge ./build pixelo.surge.sh",
-    "bad": "yarn build && yarn deploy",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "cp dist/index.html dist/200.html && surge ./dist pixelo.juleshwar.dev"
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
-    "craco-plugin-env": "^1.0.5",
-    "postcss": "^8.4.23",
-    "sass": "^1.62.1"
-  }
+    "@vitejs/plugin-react": "^6.2.1",
+    "autoprefixer": "^10.6.2",
+    "postcss": "^8.5.32",
+    "sass": "^1.107.1",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.3.5",
+    "vite-plugin-svgr": "^5.2.0",
+    "surge": "0.56.0"
+  },
+  "packageManager": "pnpm@10.30.3"
 }

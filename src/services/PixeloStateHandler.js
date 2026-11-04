@@ -1,12 +1,8 @@
-import {
-  COLOR_PALETTE_MAP,
-  PRESET_DRAWINGS_BASE_NAME,
-} from "../constants/PixeloConstants";
-import * as AirtableService from "./AirtableService";
+import { COLOR_PALETTE_MAP } from "../constants/PixeloConstants";
+import * as SupabaseService from "./SupabaseService";
 class PixeloStateHandlerBean {
   constructor() {
     this.state = {
-      drawingsDataLoading: false,
       DRAWINGS: {
         cleanSlate: Array(100).fill(this.COLOR_PALETTE_MAP["WHITE"]),
         presetDrawings: [],
@@ -26,31 +22,21 @@ class PixeloStateHandlerBean {
     return palette;
   }
 
-  async getDrawings() {
-    if (
-      !this.state.DRAWINGS.presetDrawings.length &&
-      !this.state.drawingsDataLoading
-    ) {
-      let presetDrawings = await this._fetchPresetDrawings();
-      presetDrawings = presetDrawings.map((drawing) =>
-        drawing.map((colorCode) => this.COLOR_PALETTE_MAP[colorCode])
-      );
-
-      this.state.DRAWINGS.presetDrawings = presetDrawings;
-    }
-    return this.state.DRAWINGS;
-  }
-
-  async _fetchPresetDrawings() {
-    this.state.drawingsDataLoading = true;
-    const presetDrawingsResponse = await AirtableService.fetchData(
-      PRESET_DRAWINGS_BASE_NAME
+  // Concurrent callers (e.g. StrictMode's double mount) share one request instead of getting an empty list.
+  getDrawings() {
+    this._drawingsPromise ??= SupabaseService.fetchPresetDrawings().then(
+      (presetDrawings) => {
+        this.state.DRAWINGS.presetDrawings = presetDrawings.map((drawing) =>
+          drawing.map((colorCode) => this.COLOR_PALETTE_MAP[colorCode])
+        );
+        return this.state.DRAWINGS;
+      },
+      (error) => {
+        this._drawingsPromise = undefined; // allow a retry on the next call
+        throw error;
+      }
     );
-    this.state.drawingsDataLoading = false;
-
-    return presetDrawingsResponse.map((record) =>
-      JSON.parse(record.get("template"))
-    );
+    return this._drawingsPromise;
   }
 }
 

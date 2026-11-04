@@ -1,8 +1,15 @@
 # Pixelo
-A _feel-good_ drawing app built using [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Airtable](https://airtable.com/).  
+A _feel-good_ drawing app built using [React](https://reactjs.org/), [Tailwind CSS](https://tailwindcss.com/) and [Supabase](https://supabase.com/).  
 Designed and prototyped on [Figma](http://figma.com/). [Link](https://www.figma.com/file/lCLPsyu6JlaTSVDIoPpNwe/Pixelo?node-id=0%3A1)
 
 Game deployed at [pixelo.juleshwar.dev](https://pixelo.juleshwar.dev)  
+
+## Running locally
+1. Create a Supabase project and run [`supabase/schema.sql`](supabase/schema.sql) in its SQL editor.
+2. Copy `.env.example` to `.env.local` and fill in the project URL and anon (publishable) key.
+3. `pnpm install && pnpm dev`
+
+Pushes to `main` build and deploy to surge via GitHub Actions. The repo needs the `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` and `SURGE_TOKEN` secrets.
 
 ## Why?
 I was inspired to make this game after watching a [Ember.js tutorial](https://www.youtube.com/watch?v=N4KrBuO0RRE) by Gavin Joyce a while back. I added it to my Notion list and forgot about it (as one does). I recently started learning React.js and wanted to build something. Enter ~~Pixlicate~~ **Pixelo**! (Apparently (pixel + duplicate =) "Pixlicate" doesn't roll off the tongue that easily).  

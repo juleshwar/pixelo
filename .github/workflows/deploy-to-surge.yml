@@ -1,36 +1,30 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy to surge
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '14.15.0'
+          node-version: 22
+          cache: pnpm
 
-      - name: Build 
-        run: yarn && REACT_APP_AIRTABLE_API_SECRET=${{ secrets.REACT_APP_AIRTABLE_API_SECRET }} yarn build
+      - run: pnpm install --frozen-lockfile
 
-      - name: Make 200.html file for surge
-        run: cp build/index.html build/200.html
-        
-      - name: Install *surge*
-        run: npm i -g surge
-          
-      - name: Deploy via surge
-        run: surge ./build ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
-          
-    
+      - name: Build
+        run: pnpm build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+      - name: Deploy to pixelo.juleshwar.dev
+        if: github.event_name != 'pull_request'
+        run: pnpm run deploy --token ${{ secrets.SURGE_TOKEN }}
