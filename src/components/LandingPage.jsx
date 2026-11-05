@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PixeloStateHandler from "../services/PixeloStateHandler";
 import * as UtilMethods from "../services/UtilFunctions";
-import { ReactComponent as TransparentPixeloLogo } from "../assets/svgs/transparent-pixelo-logo.svg";
-import { ReactComponent as OctocatSvg } from "../assets/svgs/octocat.svg";
+import TransparentPixeloLogo from "../assets/svgs/transparent-pixelo-logo.svg?react";
+import OctocatSvg from "../assets/svgs/octocat.svg?react";
 import PixeloButton from "./PixeloButton";
 
 export class LandingPage extends Component {

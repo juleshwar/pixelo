@@ -9,7 +9,7 @@ $highlighted-element-z-index: 19;
 // Note: If you update this duration, make sure to
 // update `ANIMATION_DURATION_MS` constant
 $animation-ms: 300;
-$animation-sec: ($animation-ms / 1000) * 1s;
+$animation-sec: calc($animation-ms / 1000) * 1s;
 
 div#driver-popover-item {
   @apply hidden absolute m-0 px-5 py-4 rounded text-gray-600;
