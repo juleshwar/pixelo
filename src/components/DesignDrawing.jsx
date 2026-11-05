@@ -51,9 +51,16 @@ export class DesignDrawing extends Component {
       name: this.state.drawingName.toUpperCase().replaceAll(" ", "_"),
       template: colorMappedMeta,
     };
-    await SupabaseService.postPresetDrawing(payload);
-    this.setState({ isSubmittingDesign: false });
-    this.resetDrawing();
+    try {
+      await SupabaseService.postPresetDrawing(payload);
+      this.resetDrawing();
+    } catch (error) {
+      console.error(error);
+      // Keep the drawing so the user can retry
+      window.alert("Couldn't save the drawing. Please try again.");
+    } finally {
+      this.setState({ isSubmittingDesign: false });
+    }
   }
 
   resetDrawing() {
@@ -87,7 +94,7 @@ export class DesignDrawing extends Component {
           doUpdateCellColor={this.doUpdateDrawingMeta}
           isReadOnly={false}
         />
-        <form className="grid gap-6 justify-start">
+        <form className="grid gap-6 justify-start" onSubmit={this.onSubmitDrawing}>
           <PixeloInput
             label={"Drawing Name"}
             value={this.state.drawingName}
@@ -95,6 +102,7 @@ export class DesignDrawing extends Component {
             onChangeHandler={this.onChangeDrawingName}
             inputAttributes={{
               required: true,
+              maxLength: 100, // matches the name check in supabase/schema.sql
               placeholder: "a nice name pls",
             }}
           />
@@ -102,8 +110,8 @@ export class DesignDrawing extends Component {
             className={`px-6 py-2 bg-gradient-to-r from-red-400 to-indigo-400 text-white ${
               this.state.isSubmittingDesign ? "animate-pulse" : ""
             }`}
+            type="submit"
             disabled={this.state.isSubmittingDesign}
-            onClick={this.onSubmitDrawing}
           >
             {this.state.isSubmittingDesign ? "Submitting..." : "Submit Drawing"}
           </button>

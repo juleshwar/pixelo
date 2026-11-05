@@ -5,7 +5,7 @@ Designed and prototyped on [Figma](http://figma.com/). [Link](https://www.figma.
 Game deployed at [pixelo.juleshwar.dev](https://pixelo.juleshwar.dev)  
 
 ## Running locally
-1. Create a Supabase project and run [`supabase/schema.sql`](supabase/schema.sql) in its SQL editor.
+1. Create a Supabase project and run [`supabase/schema.sql`](supabase/schema.sql), then [`supabase/seed.sql`](supabase/seed.sql), in its SQL editor.
 2. Copy `.env.example` to `.env.local` and fill in the project URL and anon (publishable) key.
 3. `pnpm install && pnpm dev`
 
