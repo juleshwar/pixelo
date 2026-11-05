@@ -54,6 +54,7 @@ export class DesignDrawing extends Component {
     try {
       await SupabaseService.postPresetDrawing(payload);
       this.resetDrawing();
+      window.alert("Thanks! Your drawing will show up in the game once it's approved.");
     } catch (error) {
       console.error(error);
       // Keep the drawing so the user can retry

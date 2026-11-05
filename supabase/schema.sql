@@ -9,16 +9,19 @@ create table if not exists public.preset_drawings (
   created_at timestamptz not null default now()
 );
 
+-- Submissions from /design wait for approval; approve them in the dashboard (Table Editor) to make them playable.
+alter table public.preset_drawings add column if not exists approved boolean not null default false;
+
 alter table public.preset_drawings enable row level security;
 
--- Anyone can play (read) and submit drawings from /design (insert), as with the old Airtable setup.
--- No update or delete policies, so the anon key cannot change or remove existing drawings.
+-- Anyone can play approved drawings and submit new ones, which start unapproved.
+-- No update or delete policies, so the anon key cannot approve, change or remove drawings.
 drop policy if exists "preset_drawings read" on public.preset_drawings;
 create policy "preset_drawings read" on public.preset_drawings
-  for select to anon, authenticated using (true);
+  for select to anon, authenticated using (approved);
 
 drop policy if exists "preset_drawings insert" on public.preset_drawings;
 create policy "preset_drawings insert" on public.preset_drawings
-  for insert to anon, authenticated with check (true);
+  for insert to anon, authenticated with check (not approved);
 
 grant select, insert on public.preset_drawings to anon, authenticated;
